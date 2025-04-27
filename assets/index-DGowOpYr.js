@@ -783,9 +783,9 @@ function requireScheduler_production() {
         currentPriorityLevel = previousPriorityLevel;
       }
     };
-    exports.unstable_scheduleCallback = function(priorityLevel, callback, options) {
+    exports.unstable_scheduleCallback = function(priorityLevel, callback, options2) {
       var currentTime = exports.unstable_now();
-      "object" === typeof options && null !== options ? (options = options.delay, options = "number" === typeof options && 0 < options ? currentTime + options : currentTime) : options = currentTime;
+      "object" === typeof options2 && null !== options2 ? (options2 = options2.delay, options2 = "number" === typeof options2 && 0 < options2 ? currentTime + options2 : currentTime) : options2 = currentTime;
       switch (priorityLevel) {
         case 1:
           var timeout = -1;
@@ -802,16 +802,16 @@ function requireScheduler_production() {
         default:
           timeout = 5e3;
       }
-      timeout = options + timeout;
+      timeout = options2 + timeout;
       priorityLevel = {
         id: taskIdCounter++,
         callback,
         priorityLevel,
-        startTime: options,
+        startTime: options2,
         expirationTime: timeout,
         sortIndex: -1
       };
-      options > currentTime ? (priorityLevel.sortIndex = options, push(timerQueue, priorityLevel), null === peek2(taskQueue) && priorityLevel === peek2(timerQueue) && (isHostTimeoutScheduled ? (localClearTimeout(taskTimeoutID), taskTimeoutID = -1) : isHostTimeoutScheduled = true, requestHostTimeout(handleTimeout, options - currentTime))) : (priorityLevel.sortIndex = timeout, push(taskQueue, priorityLevel), isHostCallbackScheduled || isPerformingWork || (isHostCallbackScheduled = true, isMessageLoopRunning || (isMessageLoopRunning = true, schedulePerformWorkUntilDeadline())));
+      options2 > currentTime ? (priorityLevel.sortIndex = options2, push(timerQueue, priorityLevel), null === peek2(taskQueue) && priorityLevel === peek2(timerQueue) && (isHostTimeoutScheduled ? (localClearTimeout(taskTimeoutID), taskTimeoutID = -1) : isHostTimeoutScheduled = true, requestHostTimeout(handleTimeout, options2 - currentTime))) : (priorityLevel.sortIndex = timeout, push(taskQueue, priorityLevel), isHostCallbackScheduled || isPerformingWork || (isHostCallbackScheduled = true, isMessageLoopRunning || (isMessageLoopRunning = true, schedulePerformWorkUntilDeadline())));
       return priorityLevel;
     };
     exports.unstable_shouldYield = shouldYieldToHost;
@@ -914,18 +914,18 @@ function requireReactDom_production() {
       ReactSharedInternals.T = previousTransition, Internals.p = previousUpdatePriority, Internals.d.f();
     }
   };
-  reactDom_production.preconnect = function(href, options) {
-    "string" === typeof href && (options ? (options = options.crossOrigin, options = "string" === typeof options ? "use-credentials" === options ? options : "" : void 0) : options = null, Internals.d.C(href, options));
+  reactDom_production.preconnect = function(href, options2) {
+    "string" === typeof href && (options2 ? (options2 = options2.crossOrigin, options2 = "string" === typeof options2 ? "use-credentials" === options2 ? options2 : "" : void 0) : options2 = null, Internals.d.C(href, options2));
   };
   reactDom_production.prefetchDNS = function(href) {
     "string" === typeof href && Internals.d.D(href);
   };
-  reactDom_production.preinit = function(href, options) {
-    if ("string" === typeof href && options && "string" === typeof options.as) {
-      var as = options.as, crossOrigin = getCrossOriginStringAs(as, options.crossOrigin), integrity = "string" === typeof options.integrity ? options.integrity : void 0, fetchPriority = "string" === typeof options.fetchPriority ? options.fetchPriority : void 0;
+  reactDom_production.preinit = function(href, options2) {
+    if ("string" === typeof href && options2 && "string" === typeof options2.as) {
+      var as = options2.as, crossOrigin = getCrossOriginStringAs(as, options2.crossOrigin), integrity = "string" === typeof options2.integrity ? options2.integrity : void 0, fetchPriority = "string" === typeof options2.fetchPriority ? options2.fetchPriority : void 0;
       "style" === as ? Internals.d.S(
         href,
-        "string" === typeof options.precedence ? options.precedence : void 0,
+        "string" === typeof options2.precedence ? options2.precedence : void 0,
         {
           crossOrigin,
           integrity,
@@ -935,50 +935,50 @@ function requireReactDom_production() {
         crossOrigin,
         integrity,
         fetchPriority,
-        nonce: "string" === typeof options.nonce ? options.nonce : void 0
+        nonce: "string" === typeof options2.nonce ? options2.nonce : void 0
       });
     }
   };
-  reactDom_production.preinitModule = function(href, options) {
+  reactDom_production.preinitModule = function(href, options2) {
     if ("string" === typeof href)
-      if ("object" === typeof options && null !== options) {
-        if (null == options.as || "script" === options.as) {
+      if ("object" === typeof options2 && null !== options2) {
+        if (null == options2.as || "script" === options2.as) {
           var crossOrigin = getCrossOriginStringAs(
-            options.as,
-            options.crossOrigin
+            options2.as,
+            options2.crossOrigin
           );
           Internals.d.M(href, {
             crossOrigin,
-            integrity: "string" === typeof options.integrity ? options.integrity : void 0,
-            nonce: "string" === typeof options.nonce ? options.nonce : void 0
+            integrity: "string" === typeof options2.integrity ? options2.integrity : void 0,
+            nonce: "string" === typeof options2.nonce ? options2.nonce : void 0
           });
         }
-      } else null == options && Internals.d.M(href);
+      } else null == options2 && Internals.d.M(href);
   };
-  reactDom_production.preload = function(href, options) {
-    if ("string" === typeof href && "object" === typeof options && null !== options && "string" === typeof options.as) {
-      var as = options.as, crossOrigin = getCrossOriginStringAs(as, options.crossOrigin);
+  reactDom_production.preload = function(href, options2) {
+    if ("string" === typeof href && "object" === typeof options2 && null !== options2 && "string" === typeof options2.as) {
+      var as = options2.as, crossOrigin = getCrossOriginStringAs(as, options2.crossOrigin);
       Internals.d.L(href, as, {
         crossOrigin,
-        integrity: "string" === typeof options.integrity ? options.integrity : void 0,
-        nonce: "string" === typeof options.nonce ? options.nonce : void 0,
-        type: "string" === typeof options.type ? options.type : void 0,
-        fetchPriority: "string" === typeof options.fetchPriority ? options.fetchPriority : void 0,
-        referrerPolicy: "string" === typeof options.referrerPolicy ? options.referrerPolicy : void 0,
-        imageSrcSet: "string" === typeof options.imageSrcSet ? options.imageSrcSet : void 0,
-        imageSizes: "string" === typeof options.imageSizes ? options.imageSizes : void 0,
-        media: "string" === typeof options.media ? options.media : void 0
+        integrity: "string" === typeof options2.integrity ? options2.integrity : void 0,
+        nonce: "string" === typeof options2.nonce ? options2.nonce : void 0,
+        type: "string" === typeof options2.type ? options2.type : void 0,
+        fetchPriority: "string" === typeof options2.fetchPriority ? options2.fetchPriority : void 0,
+        referrerPolicy: "string" === typeof options2.referrerPolicy ? options2.referrerPolicy : void 0,
+        imageSrcSet: "string" === typeof options2.imageSrcSet ? options2.imageSrcSet : void 0,
+        imageSizes: "string" === typeof options2.imageSizes ? options2.imageSizes : void 0,
+        media: "string" === typeof options2.media ? options2.media : void 0
       });
     }
   };
-  reactDom_production.preloadModule = function(href, options) {
+  reactDom_production.preloadModule = function(href, options2) {
     if ("string" === typeof href)
-      if (options) {
-        var crossOrigin = getCrossOriginStringAs(options.as, options.crossOrigin);
+      if (options2) {
+        var crossOrigin = getCrossOriginStringAs(options2.as, options2.crossOrigin);
         Internals.d.m(href, {
-          as: "string" === typeof options.as && "script" !== options.as ? options.as : void 0,
+          as: "string" === typeof options2.as && "script" !== options2.as ? options2.as : void 0,
           crossOrigin,
-          integrity: "string" === typeof options.integrity ? options.integrity : void 0
+          integrity: "string" === typeof options2.integrity ? options2.integrity : void 0
         });
       } else Internals.d.m(href);
   };
@@ -2158,14 +2158,14 @@ function requireReactDomClient_production() {
   var canUseDOM = !("undefined" === typeof window || "undefined" === typeof window.document || "undefined" === typeof window.document.createElement), passiveBrowserEventsSupported = false;
   if (canUseDOM)
     try {
-      var options = {};
-      Object.defineProperty(options, "passive", {
+      var options2 = {};
+      Object.defineProperty(options2, "passive", {
         get: function() {
           passiveBrowserEventsSupported = true;
         }
       });
-      window.addEventListener("test", options, options);
-      window.removeEventListener("test", options, options);
+      window.addEventListener("test", options2, options2);
+      window.removeEventListener("test", options2, options2);
     } catch (e) {
       passiveBrowserEventsSupported = false;
     }
@@ -10967,15 +10967,15 @@ function requireReactDomClient_production() {
     previousDispatcher.C(href, crossOrigin);
     preconnectAs("preconnect", href, crossOrigin);
   }
-  function preload(href, as, options2) {
-    previousDispatcher.L(href, as, options2);
+  function preload(href, as, options3) {
+    previousDispatcher.L(href, as, options3);
     var ownerDocument = globalDocument;
     if (ownerDocument && href && as) {
       var preloadSelector = 'link[rel="preload"][as="' + escapeSelectorAttributeValueInsideDoubleQuotes(as) + '"]';
-      "image" === as ? options2 && options2.imageSrcSet ? (preloadSelector += '[imagesrcset="' + escapeSelectorAttributeValueInsideDoubleQuotes(
-        options2.imageSrcSet
-      ) + '"]', "string" === typeof options2.imageSizes && (preloadSelector += '[imagesizes="' + escapeSelectorAttributeValueInsideDoubleQuotes(
-        options2.imageSizes
+      "image" === as ? options3 && options3.imageSrcSet ? (preloadSelector += '[imagesrcset="' + escapeSelectorAttributeValueInsideDoubleQuotes(
+        options3.imageSrcSet
+      ) + '"]', "string" === typeof options3.imageSizes && (preloadSelector += '[imagesizes="' + escapeSelectorAttributeValueInsideDoubleQuotes(
+        options3.imageSizes
       ) + '"]')) : preloadSelector += '[href="' + escapeSelectorAttributeValueInsideDoubleQuotes(href) + '"]' : preloadSelector += '[href="' + escapeSelectorAttributeValueInsideDoubleQuotes(href) + '"]';
       var key = preloadSelector;
       switch (as) {
@@ -10988,18 +10988,18 @@ function requireReactDomClient_production() {
       preloadPropsMap.has(key) || (href = assign2(
         {
           rel: "preload",
-          href: "image" === as && options2 && options2.imageSrcSet ? void 0 : href,
+          href: "image" === as && options3 && options3.imageSrcSet ? void 0 : href,
           as
         },
-        options2
+        options3
       ), preloadPropsMap.set(key, href), null !== ownerDocument.querySelector(preloadSelector) || "style" === as && ownerDocument.querySelector(getStylesheetSelectorFromKey(key)) || "script" === as && ownerDocument.querySelector(getScriptSelectorFromKey(key)) || (as = ownerDocument.createElement("link"), setInitialProperties(as, "link", href), markNodeAsHoistable(as), ownerDocument.head.appendChild(as)));
     }
   }
-  function preloadModule(href, options2) {
-    previousDispatcher.m(href, options2);
+  function preloadModule(href, options3) {
+    previousDispatcher.m(href, options3);
     var ownerDocument = globalDocument;
     if (ownerDocument && href) {
-      var as = options2 && "string" === typeof options2.as ? options2.as : "script", preloadSelector = 'link[rel="modulepreload"][as="' + escapeSelectorAttributeValueInsideDoubleQuotes(as) + '"][href="' + escapeSelectorAttributeValueInsideDoubleQuotes(href) + '"]', key = preloadSelector;
+      var as = options3 && "string" === typeof options3.as ? options3.as : "script", preloadSelector = 'link[rel="modulepreload"][as="' + escapeSelectorAttributeValueInsideDoubleQuotes(as) + '"][href="' + escapeSelectorAttributeValueInsideDoubleQuotes(href) + '"]', key = preloadSelector;
       switch (as) {
         case "audioworklet":
         case "paintworklet":
@@ -11009,7 +11009,7 @@ function requireReactDomClient_production() {
         case "script":
           key = getScriptKey(href);
       }
-      if (!preloadPropsMap.has(key) && (href = assign2({ rel: "modulepreload", href }, options2), preloadPropsMap.set(key, href), null === ownerDocument.querySelector(preloadSelector))) {
+      if (!preloadPropsMap.has(key) && (href = assign2({ rel: "modulepreload", href }, options3), preloadPropsMap.set(key, href), null === ownerDocument.querySelector(preloadSelector))) {
         switch (as) {
           case "audioworklet":
           case "paintworklet":
@@ -11027,8 +11027,8 @@ function requireReactDomClient_production() {
       }
     }
   }
-  function preinitStyle(href, precedence, options2) {
-    previousDispatcher.S(href, precedence, options2);
+  function preinitStyle(href, precedence, options3) {
+    previousDispatcher.S(href, precedence, options3);
     var ownerDocument = globalDocument;
     if (ownerDocument && href) {
       var styles = getResourcesFromRoot(ownerDocument).hoistableStyles, key = getStyleKey(href);
@@ -11043,9 +11043,9 @@ function requireReactDomClient_production() {
         else {
           href = assign2(
             { rel: "stylesheet", href, "data-precedence": precedence },
-            options2
+            options3
           );
-          (options2 = preloadPropsMap.get(key)) && adoptPreloadPropsForStylesheet(href, options2);
+          (options3 = preloadPropsMap.get(key)) && adoptPreloadPropsForStylesheet(href, options3);
           var link = resource = ownerDocument.createElement("link");
           markNodeAsHoistable(link);
           setInitialProperties(link, "link", href);
@@ -11072,12 +11072,12 @@ function requireReactDomClient_production() {
       }
     }
   }
-  function preinitScript(src, options2) {
-    previousDispatcher.X(src, options2);
+  function preinitScript(src, options3) {
+    previousDispatcher.X(src, options3);
     var ownerDocument = globalDocument;
     if (ownerDocument && src) {
       var scripts = getResourcesFromRoot(ownerDocument).hoistableScripts, key = getScriptKey(src), resource = scripts.get(key);
-      resource || (resource = ownerDocument.querySelector(getScriptSelectorFromKey(key)), resource || (src = assign2({ src, async: true }, options2), (options2 = preloadPropsMap.get(key)) && adoptPreloadPropsForScript(src, options2), resource = ownerDocument.createElement("script"), markNodeAsHoistable(resource), setInitialProperties(resource, "link", src), ownerDocument.head.appendChild(resource)), resource = {
+      resource || (resource = ownerDocument.querySelector(getScriptSelectorFromKey(key)), resource || (src = assign2({ src, async: true }, options3), (options3 = preloadPropsMap.get(key)) && adoptPreloadPropsForScript(src, options3), resource = ownerDocument.createElement("script"), markNodeAsHoistable(resource), setInitialProperties(resource, "link", src), ownerDocument.head.appendChild(resource)), resource = {
         type: "script",
         instance: resource,
         count: 1,
@@ -11085,12 +11085,12 @@ function requireReactDomClient_production() {
       }, scripts.set(key, resource));
     }
   }
-  function preinitModuleScript(src, options2) {
-    previousDispatcher.M(src, options2);
+  function preinitModuleScript(src, options3) {
+    previousDispatcher.M(src, options3);
     var ownerDocument = globalDocument;
     if (ownerDocument && src) {
       var scripts = getResourcesFromRoot(ownerDocument).hoistableScripts, key = getScriptKey(src), resource = scripts.get(key);
-      resource || (resource = ownerDocument.querySelector(getScriptSelectorFromKey(key)), resource || (src = assign2({ src, async: true, type: "module" }, options2), (options2 = preloadPropsMap.get(key)) && adoptPreloadPropsForScript(src, options2), resource = ownerDocument.createElement("script"), markNodeAsHoistable(resource), setInitialProperties(resource, "link", src), ownerDocument.head.appendChild(resource)), resource = {
+      resource || (resource = ownerDocument.querySelector(getScriptSelectorFromKey(key)), resource || (src = assign2({ src, async: true, type: "module" }, options3), (options3 = preloadPropsMap.get(key)) && adoptPreloadPropsForScript(src, options3), resource = ownerDocument.createElement("script"), markNodeAsHoistable(resource), setInitialProperties(resource, "link", src), ownerDocument.head.appendChild(resource)), resource = {
         type: "script",
         instance: resource,
         count: 1,
@@ -12023,11 +12023,11 @@ function requireReactDomClient_production() {
       } catch (err) {
       }
   }
-  reactDomClient_production.createRoot = function(container, options2) {
+  reactDomClient_production.createRoot = function(container, options3) {
     if (!isValidContainer(container)) throw Error(formatProdErrorMessage(299));
     var isStrictMode = false, identifierPrefix = "", onUncaughtError = defaultOnUncaughtError, onCaughtError = defaultOnCaughtError, onRecoverableError = defaultOnRecoverableError, transitionCallbacks = null;
-    null !== options2 && void 0 !== options2 && (true === options2.unstable_strictMode && (isStrictMode = true), void 0 !== options2.identifierPrefix && (identifierPrefix = options2.identifierPrefix), void 0 !== options2.onUncaughtError && (onUncaughtError = options2.onUncaughtError), void 0 !== options2.onCaughtError && (onCaughtError = options2.onCaughtError), void 0 !== options2.onRecoverableError && (onRecoverableError = options2.onRecoverableError), void 0 !== options2.unstable_transitionCallbacks && (transitionCallbacks = options2.unstable_transitionCallbacks));
-    options2 = createFiberRoot(
+    null !== options3 && void 0 !== options3 && (true === options3.unstable_strictMode && (isStrictMode = true), void 0 !== options3.identifierPrefix && (identifierPrefix = options3.identifierPrefix), void 0 !== options3.onUncaughtError && (onUncaughtError = options3.onUncaughtError), void 0 !== options3.onCaughtError && (onCaughtError = options3.onCaughtError), void 0 !== options3.onRecoverableError && (onRecoverableError = options3.onRecoverableError), void 0 !== options3.unstable_transitionCallbacks && (transitionCallbacks = options3.unstable_transitionCallbacks));
+    options3 = createFiberRoot(
       container,
       1,
       false,
@@ -12041,20 +12041,20 @@ function requireReactDomClient_production() {
       transitionCallbacks,
       null
     );
-    container[internalContainerInstanceKey] = options2.current;
+    container[internalContainerInstanceKey] = options3.current;
     listenToAllSupportedEvents(container);
-    return new ReactDOMRoot(options2);
+    return new ReactDOMRoot(options3);
   };
-  reactDomClient_production.hydrateRoot = function(container, initialChildren, options2) {
+  reactDomClient_production.hydrateRoot = function(container, initialChildren, options3) {
     if (!isValidContainer(container)) throw Error(formatProdErrorMessage(299));
     var isStrictMode = false, identifierPrefix = "", onUncaughtError = defaultOnUncaughtError, onCaughtError = defaultOnCaughtError, onRecoverableError = defaultOnRecoverableError, transitionCallbacks = null, formState = null;
-    null !== options2 && void 0 !== options2 && (true === options2.unstable_strictMode && (isStrictMode = true), void 0 !== options2.identifierPrefix && (identifierPrefix = options2.identifierPrefix), void 0 !== options2.onUncaughtError && (onUncaughtError = options2.onUncaughtError), void 0 !== options2.onCaughtError && (onCaughtError = options2.onCaughtError), void 0 !== options2.onRecoverableError && (onRecoverableError = options2.onRecoverableError), void 0 !== options2.unstable_transitionCallbacks && (transitionCallbacks = options2.unstable_transitionCallbacks), void 0 !== options2.formState && (formState = options2.formState));
+    null !== options3 && void 0 !== options3 && (true === options3.unstable_strictMode && (isStrictMode = true), void 0 !== options3.identifierPrefix && (identifierPrefix = options3.identifierPrefix), void 0 !== options3.onUncaughtError && (onUncaughtError = options3.onUncaughtError), void 0 !== options3.onCaughtError && (onCaughtError = options3.onCaughtError), void 0 !== options3.onRecoverableError && (onRecoverableError = options3.onRecoverableError), void 0 !== options3.unstable_transitionCallbacks && (transitionCallbacks = options3.unstable_transitionCallbacks), void 0 !== options3.formState && (formState = options3.formState));
     initialChildren = createFiberRoot(
       container,
       1,
       true,
       initialChildren,
-      null != options2 ? options2 : null,
+      null != options3 ? options3 : null,
       isStrictMode,
       identifierPrefix,
       onUncaughtError,
@@ -12064,15 +12064,15 @@ function requireReactDomClient_production() {
       formState
     );
     initialChildren.context = getContextForSubtree(null);
-    options2 = initialChildren.current;
+    options3 = initialChildren.current;
     isStrictMode = requestUpdateLane();
     isStrictMode = getBumpedLaneForHydrationByLane(isStrictMode);
     identifierPrefix = createUpdate(isStrictMode);
     identifierPrefix.callback = null;
-    enqueueUpdate(options2, identifierPrefix, isStrictMode);
-    options2 = isStrictMode;
-    initialChildren.current.lanes = options2;
-    markRootUpdated$1(initialChildren, options2);
+    enqueueUpdate(options3, identifierPrefix, isStrictMode);
+    options3 = isStrictMode;
+    initialChildren.current.lanes = options3;
+    markRootUpdated$1(initialChildren, options3);
     ensureRootIsScheduled(initialChildren);
     container[internalContainerInstanceKey] = initialChildren.current;
     listenToAllSupportedEvents(container);
@@ -12103,6 +12103,2245 @@ function requireClient() {
 }
 var clientExports = requireClient();
 const ReactDOM = /* @__PURE__ */ getDefaultExportFromCjs(clientExports);
+var dist = {};
+var hasRequiredDist;
+function requireDist() {
+  if (hasRequiredDist) return dist;
+  hasRequiredDist = 1;
+  Object.defineProperty(dist, "__esModule", { value: true });
+  dist.parse = parse2;
+  dist.serialize = serialize2;
+  const cookieNameRegExp = /^[\u0021-\u003A\u003C\u003E-\u007E]+$/;
+  const cookieValueRegExp = /^[\u0021-\u003A\u003C-\u007E]*$/;
+  const domainValueRegExp = /^([.]?[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)([.][a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$/i;
+  const pathValueRegExp = /^[\u0020-\u003A\u003D-\u007E]*$/;
+  const __toString = Object.prototype.toString;
+  const NullObject = /* @__PURE__ */ (() => {
+    const C = function() {
+    };
+    C.prototype = /* @__PURE__ */ Object.create(null);
+    return C;
+  })();
+  function parse2(str, options2) {
+    const obj = new NullObject();
+    const len = str.length;
+    if (len < 2)
+      return obj;
+    const dec = (options2 == null ? void 0 : options2.decode) || decode;
+    let index = 0;
+    do {
+      const eqIdx = str.indexOf("=", index);
+      if (eqIdx === -1)
+        break;
+      const colonIdx = str.indexOf(";", index);
+      const endIdx = colonIdx === -1 ? len : colonIdx;
+      if (eqIdx > endIdx) {
+        index = str.lastIndexOf(";", eqIdx - 1) + 1;
+        continue;
+      }
+      const keyStartIdx = startIndex(str, index, eqIdx);
+      const keyEndIdx = endIndex(str, eqIdx, keyStartIdx);
+      const key = str.slice(keyStartIdx, keyEndIdx);
+      if (obj[key] === void 0) {
+        let valStartIdx = startIndex(str, eqIdx + 1, endIdx);
+        let valEndIdx = endIndex(str, endIdx, valStartIdx);
+        const value = dec(str.slice(valStartIdx, valEndIdx));
+        obj[key] = value;
+      }
+      index = endIdx + 1;
+    } while (index < len);
+    return obj;
+  }
+  function startIndex(str, index, max) {
+    do {
+      const code = str.charCodeAt(index);
+      if (code !== 32 && code !== 9)
+        return index;
+    } while (++index < max);
+    return max;
+  }
+  function endIndex(str, index, min) {
+    while (index > min) {
+      const code = str.charCodeAt(--index);
+      if (code !== 32 && code !== 9)
+        return index + 1;
+    }
+    return min;
+  }
+  function serialize2(name, val, options2) {
+    const enc = (options2 == null ? void 0 : options2.encode) || encodeURIComponent;
+    if (!cookieNameRegExp.test(name)) {
+      throw new TypeError(`argument name is invalid: ${name}`);
+    }
+    const value = enc(val);
+    if (!cookieValueRegExp.test(value)) {
+      throw new TypeError(`argument val is invalid: ${val}`);
+    }
+    let str = name + "=" + value;
+    if (!options2)
+      return str;
+    if (options2.maxAge !== void 0) {
+      if (!Number.isInteger(options2.maxAge)) {
+        throw new TypeError(`option maxAge is invalid: ${options2.maxAge}`);
+      }
+      str += "; Max-Age=" + options2.maxAge;
+    }
+    if (options2.domain) {
+      if (!domainValueRegExp.test(options2.domain)) {
+        throw new TypeError(`option domain is invalid: ${options2.domain}`);
+      }
+      str += "; Domain=" + options2.domain;
+    }
+    if (options2.path) {
+      if (!pathValueRegExp.test(options2.path)) {
+        throw new TypeError(`option path is invalid: ${options2.path}`);
+      }
+      str += "; Path=" + options2.path;
+    }
+    if (options2.expires) {
+      if (!isDate(options2.expires) || !Number.isFinite(options2.expires.valueOf())) {
+        throw new TypeError(`option expires is invalid: ${options2.expires}`);
+      }
+      str += "; Expires=" + options2.expires.toUTCString();
+    }
+    if (options2.httpOnly) {
+      str += "; HttpOnly";
+    }
+    if (options2.secure) {
+      str += "; Secure";
+    }
+    if (options2.partitioned) {
+      str += "; Partitioned";
+    }
+    if (options2.priority) {
+      const priority = typeof options2.priority === "string" ? options2.priority.toLowerCase() : void 0;
+      switch (priority) {
+        case "low":
+          str += "; Priority=Low";
+          break;
+        case "medium":
+          str += "; Priority=Medium";
+          break;
+        case "high":
+          str += "; Priority=High";
+          break;
+        default:
+          throw new TypeError(`option priority is invalid: ${options2.priority}`);
+      }
+    }
+    if (options2.sameSite) {
+      const sameSite = typeof options2.sameSite === "string" ? options2.sameSite.toLowerCase() : options2.sameSite;
+      switch (sameSite) {
+        case true:
+        case "strict":
+          str += "; SameSite=Strict";
+          break;
+        case "lax":
+          str += "; SameSite=Lax";
+          break;
+        case "none":
+          str += "; SameSite=None";
+          break;
+        default:
+          throw new TypeError(`option sameSite is invalid: ${options2.sameSite}`);
+      }
+    }
+    return str;
+  }
+  function decode(str) {
+    if (str.indexOf("%") === -1)
+      return str;
+    try {
+      return decodeURIComponent(str);
+    } catch (e) {
+      return str;
+    }
+  }
+  function isDate(val) {
+    return __toString.call(val) === "[object Date]";
+  }
+  return dist;
+}
+requireDist();
+var PopStateEventType = "popstate";
+function createBrowserHistory(options2 = {}) {
+  function createBrowserLocation(window2, globalHistory) {
+    let { pathname, search, hash: hash2 } = window2.location;
+    return createLocation(
+      "",
+      { pathname, search, hash: hash2 },
+      // state defaults to `null` because `window.history.state` does
+      globalHistory.state && globalHistory.state.usr || null,
+      globalHistory.state && globalHistory.state.key || "default"
+    );
+  }
+  function createBrowserHref(window2, to) {
+    return typeof to === "string" ? to : createPath(to);
+  }
+  return getUrlBasedHistory(
+    createBrowserLocation,
+    createBrowserHref,
+    null,
+    options2
+  );
+}
+function invariant(value, message) {
+  if (value === false || value === null || typeof value === "undefined") {
+    throw new Error(message);
+  }
+}
+function warning(cond, message) {
+  if (!cond) {
+    if (typeof console !== "undefined") console.warn(message);
+    try {
+      throw new Error(message);
+    } catch (e) {
+    }
+  }
+}
+function createKey() {
+  return Math.random().toString(36).substring(2, 10);
+}
+function getHistoryState(location, index) {
+  return {
+    usr: location.state,
+    key: location.key,
+    idx: index
+  };
+}
+function createLocation(current, to, state = null, key) {
+  let location = {
+    pathname: typeof current === "string" ? current : current.pathname,
+    search: "",
+    hash: "",
+    ...typeof to === "string" ? parsePath(to) : to,
+    state,
+    // TODO: This could be cleaned up.  push/replace should probably just take
+    // full Locations now and avoid the need to run through this flow at all
+    // But that's a pretty big refactor to the current test suite so going to
+    // keep as is for the time being and just let any incoming keys take precedence
+    key: to && to.key || key || createKey()
+  };
+  return location;
+}
+function createPath({
+  pathname = "/",
+  search = "",
+  hash: hash2 = ""
+}) {
+  if (search && search !== "?")
+    pathname += search.charAt(0) === "?" ? search : "?" + search;
+  if (hash2 && hash2 !== "#")
+    pathname += hash2.charAt(0) === "#" ? hash2 : "#" + hash2;
+  return pathname;
+}
+function parsePath(path) {
+  let parsedPath = {};
+  if (path) {
+    let hashIndex = path.indexOf("#");
+    if (hashIndex >= 0) {
+      parsedPath.hash = path.substring(hashIndex);
+      path = path.substring(0, hashIndex);
+    }
+    let searchIndex = path.indexOf("?");
+    if (searchIndex >= 0) {
+      parsedPath.search = path.substring(searchIndex);
+      path = path.substring(0, searchIndex);
+    }
+    if (path) {
+      parsedPath.pathname = path;
+    }
+  }
+  return parsedPath;
+}
+function getUrlBasedHistory(getLocation, createHref2, validateLocation, options2 = {}) {
+  let { window: window2 = document.defaultView, v5Compat = false } = options2;
+  let globalHistory = window2.history;
+  let action = "POP";
+  let listener = null;
+  let index = getIndex();
+  if (index == null) {
+    index = 0;
+    globalHistory.replaceState({ ...globalHistory.state, idx: index }, "");
+  }
+  function getIndex() {
+    let state = globalHistory.state || { idx: null };
+    return state.idx;
+  }
+  function handlePop() {
+    action = "POP";
+    let nextIndex = getIndex();
+    let delta = nextIndex == null ? null : nextIndex - index;
+    index = nextIndex;
+    if (listener) {
+      listener({ action, location: history.location, delta });
+    }
+  }
+  function push(to, state) {
+    action = "PUSH";
+    let location = createLocation(history.location, to, state);
+    index = getIndex() + 1;
+    let historyState = getHistoryState(location, index);
+    let url = history.createHref(location);
+    try {
+      globalHistory.pushState(historyState, "", url);
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "DataCloneError") {
+        throw error;
+      }
+      window2.location.assign(url);
+    }
+    if (v5Compat && listener) {
+      listener({ action, location: history.location, delta: 1 });
+    }
+  }
+  function replace2(to, state) {
+    action = "REPLACE";
+    let location = createLocation(history.location, to, state);
+    index = getIndex();
+    let historyState = getHistoryState(location, index);
+    let url = history.createHref(location);
+    globalHistory.replaceState(historyState, "", url);
+    if (v5Compat && listener) {
+      listener({ action, location: history.location, delta: 0 });
+    }
+  }
+  function createURL(to) {
+    let base = window2.location.origin !== "null" ? window2.location.origin : window2.location.href;
+    let href2 = typeof to === "string" ? to : createPath(to);
+    href2 = href2.replace(/ $/, "%20");
+    invariant(
+      base,
+      `No window.location.(origin|href) available to create URL for href: ${href2}`
+    );
+    return new URL(href2, base);
+  }
+  let history = {
+    get action() {
+      return action;
+    },
+    get location() {
+      return getLocation(window2, globalHistory);
+    },
+    listen(fn) {
+      if (listener) {
+        throw new Error("A history only accepts one active listener");
+      }
+      window2.addEventListener(PopStateEventType, handlePop);
+      listener = fn;
+      return () => {
+        window2.removeEventListener(PopStateEventType, handlePop);
+        listener = null;
+      };
+    },
+    createHref(to) {
+      return createHref2(window2, to);
+    },
+    createURL,
+    encodeLocation(to) {
+      let url = createURL(to);
+      return {
+        pathname: url.pathname,
+        search: url.search,
+        hash: url.hash
+      };
+    },
+    push,
+    replace: replace2,
+    go(n) {
+      return globalHistory.go(n);
+    }
+  };
+  return history;
+}
+function matchRoutes(routes, locationArg, basename = "/") {
+  return matchRoutesImpl(routes, locationArg, basename, false);
+}
+function matchRoutesImpl(routes, locationArg, basename, allowPartial) {
+  let location = typeof locationArg === "string" ? parsePath(locationArg) : locationArg;
+  let pathname = stripBasename(location.pathname || "/", basename);
+  if (pathname == null) {
+    return null;
+  }
+  let branches = flattenRoutes(routes);
+  rankRouteBranches(branches);
+  let matches = null;
+  for (let i = 0; matches == null && i < branches.length; ++i) {
+    let decoded = decodePath(pathname);
+    matches = matchRouteBranch(
+      branches[i],
+      decoded,
+      allowPartial
+    );
+  }
+  return matches;
+}
+function flattenRoutes(routes, branches = [], parentsMeta = [], parentPath = "") {
+  let flattenRoute = (route, index, relativePath) => {
+    let meta = {
+      relativePath: relativePath === void 0 ? route.path || "" : relativePath,
+      caseSensitive: route.caseSensitive === true,
+      childrenIndex: index,
+      route
+    };
+    if (meta.relativePath.startsWith("/")) {
+      invariant(
+        meta.relativePath.startsWith(parentPath),
+        `Absolute route path "${meta.relativePath}" nested under path "${parentPath}" is not valid. An absolute child route path must start with the combined path of all its parent routes.`
+      );
+      meta.relativePath = meta.relativePath.slice(parentPath.length);
+    }
+    let path = joinPaths([parentPath, meta.relativePath]);
+    let routesMeta = parentsMeta.concat(meta);
+    if (route.children && route.children.length > 0) {
+      invariant(
+        // Our types know better, but runtime JS may not!
+        // @ts-expect-error
+        route.index !== true,
+        `Index routes must not have child routes. Please remove all child routes from route path "${path}".`
+      );
+      flattenRoutes(route.children, branches, routesMeta, path);
+    }
+    if (route.path == null && !route.index) {
+      return;
+    }
+    branches.push({
+      path,
+      score: computeScore(path, route.index),
+      routesMeta
+    });
+  };
+  routes.forEach((route, index) => {
+    var _a;
+    if (route.path === "" || !((_a = route.path) == null ? void 0 : _a.includes("?"))) {
+      flattenRoute(route, index);
+    } else {
+      for (let exploded of explodeOptionalSegments(route.path)) {
+        flattenRoute(route, index, exploded);
+      }
+    }
+  });
+  return branches;
+}
+function explodeOptionalSegments(path) {
+  let segments = path.split("/");
+  if (segments.length === 0) return [];
+  let [first, ...rest] = segments;
+  let isOptional = first.endsWith("?");
+  let required = first.replace(/\?$/, "");
+  if (rest.length === 0) {
+    return isOptional ? [required, ""] : [required];
+  }
+  let restExploded = explodeOptionalSegments(rest.join("/"));
+  let result = [];
+  result.push(
+    ...restExploded.map(
+      (subpath) => subpath === "" ? required : [required, subpath].join("/")
+    )
+  );
+  if (isOptional) {
+    result.push(...restExploded);
+  }
+  return result.map(
+    (exploded) => path.startsWith("/") && exploded === "" ? "/" : exploded
+  );
+}
+function rankRouteBranches(branches) {
+  branches.sort(
+    (a, b) => a.score !== b.score ? b.score - a.score : compareIndexes(
+      a.routesMeta.map((meta) => meta.childrenIndex),
+      b.routesMeta.map((meta) => meta.childrenIndex)
+    )
+  );
+}
+var paramRe = /^:[\w-]+$/;
+var dynamicSegmentValue = 3;
+var indexRouteValue = 2;
+var emptySegmentValue = 1;
+var staticSegmentValue = 10;
+var splatPenalty = -2;
+var isSplat = (s) => s === "*";
+function computeScore(path, index) {
+  let segments = path.split("/");
+  let initialScore = segments.length;
+  if (segments.some(isSplat)) {
+    initialScore += splatPenalty;
+  }
+  if (index) {
+    initialScore += indexRouteValue;
+  }
+  return segments.filter((s) => !isSplat(s)).reduce(
+    (score, segment) => score + (paramRe.test(segment) ? dynamicSegmentValue : segment === "" ? emptySegmentValue : staticSegmentValue),
+    initialScore
+  );
+}
+function compareIndexes(a, b) {
+  let siblings = a.length === b.length && a.slice(0, -1).every((n, i) => n === b[i]);
+  return siblings ? (
+    // If two routes are siblings, we should try to match the earlier sibling
+    // first. This allows people to have fine-grained control over the matching
+    // behavior by simply putting routes with identical paths in the order they
+    // want them tried.
+    a[a.length - 1] - b[b.length - 1]
+  ) : (
+    // Otherwise, it doesn't really make sense to rank non-siblings by index,
+    // so they sort equally.
+    0
+  );
+}
+function matchRouteBranch(branch, pathname, allowPartial = false) {
+  let { routesMeta } = branch;
+  let matchedParams = {};
+  let matchedPathname = "/";
+  let matches = [];
+  for (let i = 0; i < routesMeta.length; ++i) {
+    let meta = routesMeta[i];
+    let end = i === routesMeta.length - 1;
+    let remainingPathname = matchedPathname === "/" ? pathname : pathname.slice(matchedPathname.length) || "/";
+    let match2 = matchPath(
+      { path: meta.relativePath, caseSensitive: meta.caseSensitive, end },
+      remainingPathname
+    );
+    let route = meta.route;
+    if (!match2 && end && allowPartial && !routesMeta[routesMeta.length - 1].route.index) {
+      match2 = matchPath(
+        {
+          path: meta.relativePath,
+          caseSensitive: meta.caseSensitive,
+          end: false
+        },
+        remainingPathname
+      );
+    }
+    if (!match2) {
+      return null;
+    }
+    Object.assign(matchedParams, match2.params);
+    matches.push({
+      // TODO: Can this as be avoided?
+      params: matchedParams,
+      pathname: joinPaths([matchedPathname, match2.pathname]),
+      pathnameBase: normalizePathname(
+        joinPaths([matchedPathname, match2.pathnameBase])
+      ),
+      route
+    });
+    if (match2.pathnameBase !== "/") {
+      matchedPathname = joinPaths([matchedPathname, match2.pathnameBase]);
+    }
+  }
+  return matches;
+}
+function matchPath(pattern, pathname) {
+  if (typeof pattern === "string") {
+    pattern = { path: pattern, caseSensitive: false, end: true };
+  }
+  let [matcher, compiledParams] = compilePath(
+    pattern.path,
+    pattern.caseSensitive,
+    pattern.end
+  );
+  let match2 = pathname.match(matcher);
+  if (!match2) return null;
+  let matchedPathname = match2[0];
+  let pathnameBase = matchedPathname.replace(/(.)\/+$/, "$1");
+  let captureGroups = match2.slice(1);
+  let params = compiledParams.reduce(
+    (memo2, { paramName, isOptional }, index) => {
+      if (paramName === "*") {
+        let splatValue = captureGroups[index] || "";
+        pathnameBase = matchedPathname.slice(0, matchedPathname.length - splatValue.length).replace(/(.)\/+$/, "$1");
+      }
+      const value = captureGroups[index];
+      if (isOptional && !value) {
+        memo2[paramName] = void 0;
+      } else {
+        memo2[paramName] = (value || "").replace(/%2F/g, "/");
+      }
+      return memo2;
+    },
+    {}
+  );
+  return {
+    params,
+    pathname: matchedPathname,
+    pathnameBase,
+    pattern
+  };
+}
+function compilePath(path, caseSensitive = false, end = true) {
+  warning(
+    path === "*" || !path.endsWith("*") || path.endsWith("/*"),
+    `Route path "${path}" will be treated as if it were "${path.replace(/\*$/, "/*")}" because the \`*\` character must always follow a \`/\` in the pattern. To get rid of this warning, please change the route path to "${path.replace(/\*$/, "/*")}".`
+  );
+  let params = [];
+  let regexpSource = "^" + path.replace(/\/*\*?$/, "").replace(/^\/*/, "/").replace(/[\\.*+^${}|()[\]]/g, "\\$&").replace(
+    /\/:([\w-]+)(\?)?/g,
+    (_, paramName, isOptional) => {
+      params.push({ paramName, isOptional: isOptional != null });
+      return isOptional ? "/?([^\\/]+)?" : "/([^\\/]+)";
+    }
+  );
+  if (path.endsWith("*")) {
+    params.push({ paramName: "*" });
+    regexpSource += path === "*" || path === "/*" ? "(.*)$" : "(?:\\/(.+)|\\/*)$";
+  } else if (end) {
+    regexpSource += "\\/*$";
+  } else if (path !== "" && path !== "/") {
+    regexpSource += "(?:(?=\\/|$))";
+  } else ;
+  let matcher = new RegExp(regexpSource, caseSensitive ? void 0 : "i");
+  return [matcher, params];
+}
+function decodePath(value) {
+  try {
+    return value.split("/").map((v) => decodeURIComponent(v).replace(/\//g, "%2F")).join("/");
+  } catch (error) {
+    warning(
+      false,
+      `The URL path "${value}" could not be decoded because it is a malformed URL segment. This is probably due to a bad percent encoding (${error}).`
+    );
+    return value;
+  }
+}
+function stripBasename(pathname, basename) {
+  if (basename === "/") return pathname;
+  if (!pathname.toLowerCase().startsWith(basename.toLowerCase())) {
+    return null;
+  }
+  let startIndex = basename.endsWith("/") ? basename.length - 1 : basename.length;
+  let nextChar = pathname.charAt(startIndex);
+  if (nextChar && nextChar !== "/") {
+    return null;
+  }
+  return pathname.slice(startIndex) || "/";
+}
+function resolvePath(to, fromPathname = "/") {
+  let {
+    pathname: toPathname,
+    search = "",
+    hash: hash2 = ""
+  } = typeof to === "string" ? parsePath(to) : to;
+  let pathname = toPathname ? toPathname.startsWith("/") ? toPathname : resolvePathname(toPathname, fromPathname) : fromPathname;
+  return {
+    pathname,
+    search: normalizeSearch(search),
+    hash: normalizeHash(hash2)
+  };
+}
+function resolvePathname(relativePath, fromPathname) {
+  let segments = fromPathname.replace(/\/+$/, "").split("/");
+  let relativeSegments = relativePath.split("/");
+  relativeSegments.forEach((segment) => {
+    if (segment === "..") {
+      if (segments.length > 1) segments.pop();
+    } else if (segment !== ".") {
+      segments.push(segment);
+    }
+  });
+  return segments.length > 1 ? segments.join("/") : "/";
+}
+function getInvalidPathError(char2, field, dest, path) {
+  return `Cannot include a '${char2}' character in a manually specified \`to.${field}\` field [${JSON.stringify(
+    path
+  )}].  Please separate it out to the \`to.${dest}\` field. Alternatively you may provide the full path as a string in <Link to="..."> and the router will parse it for you.`;
+}
+function getPathContributingMatches(matches) {
+  return matches.filter(
+    (match2, index) => index === 0 || match2.route.path && match2.route.path.length > 0
+  );
+}
+function getResolveToMatches(matches) {
+  let pathMatches = getPathContributingMatches(matches);
+  return pathMatches.map(
+    (match2, idx) => idx === pathMatches.length - 1 ? match2.pathname : match2.pathnameBase
+  );
+}
+function resolveTo(toArg, routePathnames, locationPathname, isPathRelative = false) {
+  let to;
+  if (typeof toArg === "string") {
+    to = parsePath(toArg);
+  } else {
+    to = { ...toArg };
+    invariant(
+      !to.pathname || !to.pathname.includes("?"),
+      getInvalidPathError("?", "pathname", "search", to)
+    );
+    invariant(
+      !to.pathname || !to.pathname.includes("#"),
+      getInvalidPathError("#", "pathname", "hash", to)
+    );
+    invariant(
+      !to.search || !to.search.includes("#"),
+      getInvalidPathError("#", "search", "hash", to)
+    );
+  }
+  let isEmptyPath = toArg === "" || to.pathname === "";
+  let toPathname = isEmptyPath ? "/" : to.pathname;
+  let from2;
+  if (toPathname == null) {
+    from2 = locationPathname;
+  } else {
+    let routePathnameIndex = routePathnames.length - 1;
+    if (!isPathRelative && toPathname.startsWith("..")) {
+      let toSegments = toPathname.split("/");
+      while (toSegments[0] === "..") {
+        toSegments.shift();
+        routePathnameIndex -= 1;
+      }
+      to.pathname = toSegments.join("/");
+    }
+    from2 = routePathnameIndex >= 0 ? routePathnames[routePathnameIndex] : "/";
+  }
+  let path = resolvePath(to, from2);
+  let hasExplicitTrailingSlash = toPathname && toPathname !== "/" && toPathname.endsWith("/");
+  let hasCurrentTrailingSlash = (isEmptyPath || toPathname === ".") && locationPathname.endsWith("/");
+  if (!path.pathname.endsWith("/") && (hasExplicitTrailingSlash || hasCurrentTrailingSlash)) {
+    path.pathname += "/";
+  }
+  return path;
+}
+var joinPaths = (paths) => paths.join("/").replace(/\/\/+/g, "/");
+var normalizePathname = (pathname) => pathname.replace(/\/+$/, "").replace(/^\/*/, "/");
+var normalizeSearch = (search) => !search || search === "?" ? "" : search.startsWith("?") ? search : "?" + search;
+var normalizeHash = (hash2) => !hash2 || hash2 === "#" ? "" : hash2.startsWith("#") ? hash2 : "#" + hash2;
+function isRouteErrorResponse(error) {
+  return error != null && typeof error.status === "number" && typeof error.statusText === "string" && typeof error.internal === "boolean" && "data" in error;
+}
+var validMutationMethodsArr = [
+  "POST",
+  "PUT",
+  "PATCH",
+  "DELETE"
+];
+new Set(
+  validMutationMethodsArr
+);
+var validRequestMethodsArr = [
+  "GET",
+  ...validMutationMethodsArr
+];
+new Set(validRequestMethodsArr);
+var DataRouterContext = reactExports.createContext(null);
+DataRouterContext.displayName = "DataRouter";
+var DataRouterStateContext = reactExports.createContext(null);
+DataRouterStateContext.displayName = "DataRouterState";
+var ViewTransitionContext = reactExports.createContext({
+  isTransitioning: false
+});
+ViewTransitionContext.displayName = "ViewTransition";
+var FetchersContext = reactExports.createContext(
+  /* @__PURE__ */ new Map()
+);
+FetchersContext.displayName = "Fetchers";
+var AwaitContext = reactExports.createContext(null);
+AwaitContext.displayName = "Await";
+var NavigationContext = reactExports.createContext(
+  null
+);
+NavigationContext.displayName = "Navigation";
+var LocationContext = reactExports.createContext(
+  null
+);
+LocationContext.displayName = "Location";
+var RouteContext = reactExports.createContext({
+  outlet: null,
+  matches: [],
+  isDataRoute: false
+});
+RouteContext.displayName = "Route";
+var RouteErrorContext = reactExports.createContext(null);
+RouteErrorContext.displayName = "RouteError";
+function useHref(to, { relative } = {}) {
+  invariant(
+    useInRouterContext(),
+    // TODO: This error is probably because they somehow have 2 versions of the
+    // router loaded. We can help them understand how to avoid that.
+    `useHref() may be used only in the context of a <Router> component.`
+  );
+  let { basename, navigator: navigator2 } = reactExports.useContext(NavigationContext);
+  let { hash: hash2, pathname, search } = useResolvedPath(to, { relative });
+  let joinedPathname = pathname;
+  if (basename !== "/") {
+    joinedPathname = pathname === "/" ? basename : joinPaths([basename, pathname]);
+  }
+  return navigator2.createHref({ pathname: joinedPathname, search, hash: hash2 });
+}
+function useInRouterContext() {
+  return reactExports.useContext(LocationContext) != null;
+}
+function useLocation() {
+  invariant(
+    useInRouterContext(),
+    // TODO: This error is probably because they somehow have 2 versions of the
+    // router loaded. We can help them understand how to avoid that.
+    `useLocation() may be used only in the context of a <Router> component.`
+  );
+  return reactExports.useContext(LocationContext).location;
+}
+var navigateEffectWarning = `You should call navigate() in a React.useEffect(), not when your component is first rendered.`;
+function useIsomorphicLayoutEffect(cb) {
+  let isStatic = reactExports.useContext(NavigationContext).static;
+  if (!isStatic) {
+    reactExports.useLayoutEffect(cb);
+  }
+}
+function useNavigate() {
+  let { isDataRoute } = reactExports.useContext(RouteContext);
+  return isDataRoute ? useNavigateStable() : useNavigateUnstable();
+}
+function useNavigateUnstable() {
+  invariant(
+    useInRouterContext(),
+    // TODO: This error is probably because they somehow have 2 versions of the
+    // router loaded. We can help them understand how to avoid that.
+    `useNavigate() may be used only in the context of a <Router> component.`
+  );
+  let dataRouterContext = reactExports.useContext(DataRouterContext);
+  let { basename, navigator: navigator2 } = reactExports.useContext(NavigationContext);
+  let { matches } = reactExports.useContext(RouteContext);
+  let { pathname: locationPathname } = useLocation();
+  let routePathnamesJson = JSON.stringify(getResolveToMatches(matches));
+  let activeRef = reactExports.useRef(false);
+  useIsomorphicLayoutEffect(() => {
+    activeRef.current = true;
+  });
+  let navigate = reactExports.useCallback(
+    (to, options2 = {}) => {
+      warning(activeRef.current, navigateEffectWarning);
+      if (!activeRef.current) return;
+      if (typeof to === "number") {
+        navigator2.go(to);
+        return;
+      }
+      let path = resolveTo(
+        to,
+        JSON.parse(routePathnamesJson),
+        locationPathname,
+        options2.relative === "path"
+      );
+      if (dataRouterContext == null && basename !== "/") {
+        path.pathname = path.pathname === "/" ? basename : joinPaths([basename, path.pathname]);
+      }
+      (!!options2.replace ? navigator2.replace : navigator2.push)(
+        path,
+        options2.state,
+        options2
+      );
+    },
+    [
+      basename,
+      navigator2,
+      routePathnamesJson,
+      locationPathname,
+      dataRouterContext
+    ]
+  );
+  return navigate;
+}
+reactExports.createContext(null);
+function useResolvedPath(to, { relative } = {}) {
+  let { matches } = reactExports.useContext(RouteContext);
+  let { pathname: locationPathname } = useLocation();
+  let routePathnamesJson = JSON.stringify(getResolveToMatches(matches));
+  return reactExports.useMemo(
+    () => resolveTo(
+      to,
+      JSON.parse(routePathnamesJson),
+      locationPathname,
+      relative === "path"
+    ),
+    [to, routePathnamesJson, locationPathname, relative]
+  );
+}
+function useRoutes(routes, locationArg) {
+  return useRoutesImpl(routes, locationArg);
+}
+function useRoutesImpl(routes, locationArg, dataRouterState, future) {
+  var _a;
+  invariant(
+    useInRouterContext(),
+    // TODO: This error is probably because they somehow have 2 versions of the
+    // router loaded. We can help them understand how to avoid that.
+    `useRoutes() may be used only in the context of a <Router> component.`
+  );
+  let { navigator: navigator2, static: isStatic } = reactExports.useContext(NavigationContext);
+  let { matches: parentMatches } = reactExports.useContext(RouteContext);
+  let routeMatch = parentMatches[parentMatches.length - 1];
+  let parentParams = routeMatch ? routeMatch.params : {};
+  let parentPathname = routeMatch ? routeMatch.pathname : "/";
+  let parentPathnameBase = routeMatch ? routeMatch.pathnameBase : "/";
+  let parentRoute = routeMatch && routeMatch.route;
+  {
+    let parentPath = parentRoute && parentRoute.path || "";
+    warningOnce(
+      parentPathname,
+      !parentRoute || parentPath.endsWith("*") || parentPath.endsWith("*?"),
+      `You rendered descendant <Routes> (or called \`useRoutes()\`) at "${parentPathname}" (under <Route path="${parentPath}">) but the parent route path has no trailing "*". This means if you navigate deeper, the parent won't match anymore and therefore the child routes will never render.
+
+Please change the parent <Route path="${parentPath}"> to <Route path="${parentPath === "/" ? "*" : `${parentPath}/*`}">.`
+    );
+  }
+  let locationFromContext = useLocation();
+  let location;
+  if (locationArg) {
+    let parsedLocationArg = typeof locationArg === "string" ? parsePath(locationArg) : locationArg;
+    invariant(
+      parentPathnameBase === "/" || ((_a = parsedLocationArg.pathname) == null ? void 0 : _a.startsWith(parentPathnameBase)),
+      `When overriding the location using \`<Routes location>\` or \`useRoutes(routes, location)\`, the location pathname must begin with the portion of the URL pathname that was matched by all parent routes. The current pathname base is "${parentPathnameBase}" but pathname "${parsedLocationArg.pathname}" was given in the \`location\` prop.`
+    );
+    location = parsedLocationArg;
+  } else {
+    location = locationFromContext;
+  }
+  let pathname = location.pathname || "/";
+  let remainingPathname = pathname;
+  if (parentPathnameBase !== "/") {
+    let parentSegments = parentPathnameBase.replace(/^\//, "").split("/");
+    let segments = pathname.replace(/^\//, "").split("/");
+    remainingPathname = "/" + segments.slice(parentSegments.length).join("/");
+  }
+  let matches = !isStatic && dataRouterState && dataRouterState.matches && dataRouterState.matches.length > 0 ? dataRouterState.matches : matchRoutes(routes, { pathname: remainingPathname });
+  {
+    warning(
+      parentRoute || matches != null,
+      `No routes matched location "${location.pathname}${location.search}${location.hash}" `
+    );
+    warning(
+      matches == null || matches[matches.length - 1].route.element !== void 0 || matches[matches.length - 1].route.Component !== void 0 || matches[matches.length - 1].route.lazy !== void 0,
+      `Matched leaf route at location "${location.pathname}${location.search}${location.hash}" does not have an element or Component. This means it will render an <Outlet /> with a null value by default resulting in an "empty" page.`
+    );
+  }
+  let renderedMatches = _renderMatches(
+    matches && matches.map(
+      (match2) => Object.assign({}, match2, {
+        params: Object.assign({}, parentParams, match2.params),
+        pathname: joinPaths([
+          parentPathnameBase,
+          // Re-encode pathnames that were decoded inside matchRoutes
+          navigator2.encodeLocation ? navigator2.encodeLocation(match2.pathname).pathname : match2.pathname
+        ]),
+        pathnameBase: match2.pathnameBase === "/" ? parentPathnameBase : joinPaths([
+          parentPathnameBase,
+          // Re-encode pathnames that were decoded inside matchRoutes
+          navigator2.encodeLocation ? navigator2.encodeLocation(match2.pathnameBase).pathname : match2.pathnameBase
+        ])
+      })
+    ),
+    parentMatches,
+    dataRouterState,
+    future
+  );
+  if (locationArg && renderedMatches) {
+    return /* @__PURE__ */ reactExports.createElement(
+      LocationContext.Provider,
+      {
+        value: {
+          location: {
+            pathname: "/",
+            search: "",
+            hash: "",
+            state: null,
+            key: "default",
+            ...location
+          },
+          navigationType: "POP"
+          /* Pop */
+        }
+      },
+      renderedMatches
+    );
+  }
+  return renderedMatches;
+}
+function DefaultErrorComponent() {
+  let error = useRouteError();
+  let message = isRouteErrorResponse(error) ? `${error.status} ${error.statusText}` : error instanceof Error ? error.message : JSON.stringify(error);
+  let stack = error instanceof Error ? error.stack : null;
+  let lightgrey = "rgba(200,200,200, 0.5)";
+  let preStyles = { padding: "0.5rem", backgroundColor: lightgrey };
+  let codeStyles = { padding: "2px 4px", backgroundColor: lightgrey };
+  let devInfo = null;
+  {
+    console.error(
+      "Error handled by React Router default ErrorBoundary:",
+      error
+    );
+    devInfo = /* @__PURE__ */ reactExports.createElement(reactExports.Fragment, null, /* @__PURE__ */ reactExports.createElement("p", null, "💿 Hey developer 👋"), /* @__PURE__ */ reactExports.createElement("p", null, "You can provide a way better UX than this when your app throws errors by providing your own ", /* @__PURE__ */ reactExports.createElement("code", { style: codeStyles }, "ErrorBoundary"), " or", " ", /* @__PURE__ */ reactExports.createElement("code", { style: codeStyles }, "errorElement"), " prop on your route."));
+  }
+  return /* @__PURE__ */ reactExports.createElement(reactExports.Fragment, null, /* @__PURE__ */ reactExports.createElement("h2", null, "Unexpected Application Error!"), /* @__PURE__ */ reactExports.createElement("h3", { style: { fontStyle: "italic" } }, message), stack ? /* @__PURE__ */ reactExports.createElement("pre", { style: preStyles }, stack) : null, devInfo);
+}
+var defaultErrorElement = /* @__PURE__ */ reactExports.createElement(DefaultErrorComponent, null);
+var RenderErrorBoundary = class extends reactExports.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      location: props.location,
+      revalidation: props.revalidation,
+      error: props.error
+    };
+  }
+  static getDerivedStateFromError(error) {
+    return { error };
+  }
+  static getDerivedStateFromProps(props, state) {
+    if (state.location !== props.location || state.revalidation !== "idle" && props.revalidation === "idle") {
+      return {
+        error: props.error,
+        location: props.location,
+        revalidation: props.revalidation
+      };
+    }
+    return {
+      error: props.error !== void 0 ? props.error : state.error,
+      location: state.location,
+      revalidation: props.revalidation || state.revalidation
+    };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error(
+      "React Router caught the following error during render",
+      error,
+      errorInfo
+    );
+  }
+  render() {
+    return this.state.error !== void 0 ? /* @__PURE__ */ reactExports.createElement(RouteContext.Provider, { value: this.props.routeContext }, /* @__PURE__ */ reactExports.createElement(
+      RouteErrorContext.Provider,
+      {
+        value: this.state.error,
+        children: this.props.component
+      }
+    )) : this.props.children;
+  }
+};
+function RenderedRoute({ routeContext, match: match2, children }) {
+  let dataRouterContext = reactExports.useContext(DataRouterContext);
+  if (dataRouterContext && dataRouterContext.static && dataRouterContext.staticContext && (match2.route.errorElement || match2.route.ErrorBoundary)) {
+    dataRouterContext.staticContext._deepestRenderedBoundaryId = match2.route.id;
+  }
+  return /* @__PURE__ */ reactExports.createElement(RouteContext.Provider, { value: routeContext }, children);
+}
+function _renderMatches(matches, parentMatches = [], dataRouterState = null, future = null) {
+  if (matches == null) {
+    if (!dataRouterState) {
+      return null;
+    }
+    if (dataRouterState.errors) {
+      matches = dataRouterState.matches;
+    } else if (parentMatches.length === 0 && !dataRouterState.initialized && dataRouterState.matches.length > 0) {
+      matches = dataRouterState.matches;
+    } else {
+      return null;
+    }
+  }
+  let renderedMatches = matches;
+  let errors = dataRouterState == null ? void 0 : dataRouterState.errors;
+  if (errors != null) {
+    let errorIndex = renderedMatches.findIndex(
+      (m) => m.route.id && (errors == null ? void 0 : errors[m.route.id]) !== void 0
+    );
+    invariant(
+      errorIndex >= 0,
+      `Could not find a matching route for errors on route IDs: ${Object.keys(
+        errors
+      ).join(",")}`
+    );
+    renderedMatches = renderedMatches.slice(
+      0,
+      Math.min(renderedMatches.length, errorIndex + 1)
+    );
+  }
+  let renderFallback = false;
+  let fallbackIndex = -1;
+  if (dataRouterState) {
+    for (let i = 0; i < renderedMatches.length; i++) {
+      let match2 = renderedMatches[i];
+      if (match2.route.HydrateFallback || match2.route.hydrateFallbackElement) {
+        fallbackIndex = i;
+      }
+      if (match2.route.id) {
+        let { loaderData, errors: errors2 } = dataRouterState;
+        let needsToRunLoader = match2.route.loader && !loaderData.hasOwnProperty(match2.route.id) && (!errors2 || errors2[match2.route.id] === void 0);
+        if (match2.route.lazy || needsToRunLoader) {
+          renderFallback = true;
+          if (fallbackIndex >= 0) {
+            renderedMatches = renderedMatches.slice(0, fallbackIndex + 1);
+          } else {
+            renderedMatches = [renderedMatches[0]];
+          }
+          break;
+        }
+      }
+    }
+  }
+  return renderedMatches.reduceRight((outlet, match2, index) => {
+    let error;
+    let shouldRenderHydrateFallback = false;
+    let errorElement = null;
+    let hydrateFallbackElement = null;
+    if (dataRouterState) {
+      error = errors && match2.route.id ? errors[match2.route.id] : void 0;
+      errorElement = match2.route.errorElement || defaultErrorElement;
+      if (renderFallback) {
+        if (fallbackIndex < 0 && index === 0) {
+          warningOnce(
+            "route-fallback",
+            false,
+            "No `HydrateFallback` element provided to render during initial hydration"
+          );
+          shouldRenderHydrateFallback = true;
+          hydrateFallbackElement = null;
+        } else if (fallbackIndex === index) {
+          shouldRenderHydrateFallback = true;
+          hydrateFallbackElement = match2.route.hydrateFallbackElement || null;
+        }
+      }
+    }
+    let matches2 = parentMatches.concat(renderedMatches.slice(0, index + 1));
+    let getChildren = () => {
+      let children;
+      if (error) {
+        children = errorElement;
+      } else if (shouldRenderHydrateFallback) {
+        children = hydrateFallbackElement;
+      } else if (match2.route.Component) {
+        children = /* @__PURE__ */ reactExports.createElement(match2.route.Component, null);
+      } else if (match2.route.element) {
+        children = match2.route.element;
+      } else {
+        children = outlet;
+      }
+      return /* @__PURE__ */ reactExports.createElement(
+        RenderedRoute,
+        {
+          match: match2,
+          routeContext: {
+            outlet,
+            matches: matches2,
+            isDataRoute: dataRouterState != null
+          },
+          children
+        }
+      );
+    };
+    return dataRouterState && (match2.route.ErrorBoundary || match2.route.errorElement || index === 0) ? /* @__PURE__ */ reactExports.createElement(
+      RenderErrorBoundary,
+      {
+        location: dataRouterState.location,
+        revalidation: dataRouterState.revalidation,
+        component: errorElement,
+        error,
+        children: getChildren(),
+        routeContext: { outlet: null, matches: matches2, isDataRoute: true }
+      }
+    ) : getChildren();
+  }, null);
+}
+function getDataRouterConsoleError(hookName) {
+  return `${hookName} must be used within a data router.  See https://reactrouter.com/en/main/routers/picking-a-router.`;
+}
+function useDataRouterContext(hookName) {
+  let ctx = reactExports.useContext(DataRouterContext);
+  invariant(ctx, getDataRouterConsoleError(hookName));
+  return ctx;
+}
+function useDataRouterState(hookName) {
+  let state = reactExports.useContext(DataRouterStateContext);
+  invariant(state, getDataRouterConsoleError(hookName));
+  return state;
+}
+function useRouteContext(hookName) {
+  let route = reactExports.useContext(RouteContext);
+  invariant(route, getDataRouterConsoleError(hookName));
+  return route;
+}
+function useCurrentRouteId(hookName) {
+  let route = useRouteContext(hookName);
+  let thisRoute = route.matches[route.matches.length - 1];
+  invariant(
+    thisRoute.route.id,
+    `${hookName} can only be used on routes that contain a unique "id"`
+  );
+  return thisRoute.route.id;
+}
+function useRouteId() {
+  return useCurrentRouteId(
+    "useRouteId"
+    /* UseRouteId */
+  );
+}
+function useRouteError() {
+  var _a;
+  let error = reactExports.useContext(RouteErrorContext);
+  let state = useDataRouterState(
+    "useRouteError"
+    /* UseRouteError */
+  );
+  let routeId = useCurrentRouteId(
+    "useRouteError"
+    /* UseRouteError */
+  );
+  if (error !== void 0) {
+    return error;
+  }
+  return (_a = state.errors) == null ? void 0 : _a[routeId];
+}
+function useNavigateStable() {
+  let { router } = useDataRouterContext(
+    "useNavigate"
+    /* UseNavigateStable */
+  );
+  let id = useCurrentRouteId(
+    "useNavigate"
+    /* UseNavigateStable */
+  );
+  let activeRef = reactExports.useRef(false);
+  useIsomorphicLayoutEffect(() => {
+    activeRef.current = true;
+  });
+  let navigate = reactExports.useCallback(
+    async (to, options2 = {}) => {
+      warning(activeRef.current, navigateEffectWarning);
+      if (!activeRef.current) return;
+      if (typeof to === "number") {
+        router.navigate(to);
+      } else {
+        await router.navigate(to, { fromRouteId: id, ...options2 });
+      }
+    },
+    [router, id]
+  );
+  return navigate;
+}
+var alreadyWarned = {};
+function warningOnce(key, cond, message) {
+  if (!cond && !alreadyWarned[key]) {
+    alreadyWarned[key] = true;
+    warning(false, message);
+  }
+}
+reactExports.memo(DataRoutes);
+function DataRoutes({
+  routes,
+  future,
+  state
+}) {
+  return useRoutesImpl(routes, void 0, state, future);
+}
+function Navigate({
+  to,
+  replace: replace2,
+  state,
+  relative
+}) {
+  invariant(
+    useInRouterContext(),
+    // TODO: This error is probably because they somehow have 2 versions of
+    // the router loaded. We can help them understand how to avoid that.
+    `<Navigate> may be used only in the context of a <Router> component.`
+  );
+  let { static: isStatic } = reactExports.useContext(NavigationContext);
+  warning(
+    !isStatic,
+    `<Navigate> must not be used on the initial render in a <StaticRouter>. This is a no-op, but you should modify your code so the <Navigate> is only ever rendered in response to some user interaction or state change.`
+  );
+  let { matches } = reactExports.useContext(RouteContext);
+  let { pathname: locationPathname } = useLocation();
+  let navigate = useNavigate();
+  let path = resolveTo(
+    to,
+    getResolveToMatches(matches),
+    locationPathname,
+    relative === "path"
+  );
+  let jsonPath = JSON.stringify(path);
+  reactExports.useEffect(() => {
+    navigate(JSON.parse(jsonPath), { replace: replace2, state, relative });
+  }, [navigate, jsonPath, relative, replace2, state]);
+  return null;
+}
+function Route(_props) {
+  invariant(
+    false,
+    `A <Route> is only ever to be used as the child of <Routes> element, never rendered directly. Please wrap your <Route> in a <Routes>.`
+  );
+}
+function Router({
+  basename: basenameProp = "/",
+  children = null,
+  location: locationProp,
+  navigationType = "POP",
+  navigator: navigator2,
+  static: staticProp = false
+}) {
+  invariant(
+    !useInRouterContext(),
+    `You cannot render a <Router> inside another <Router>. You should never have more than one in your app.`
+  );
+  let basename = basenameProp.replace(/^\/*/, "/");
+  let navigationContext = reactExports.useMemo(
+    () => ({
+      basename,
+      navigator: navigator2,
+      static: staticProp,
+      future: {}
+    }),
+    [basename, navigator2, staticProp]
+  );
+  if (typeof locationProp === "string") {
+    locationProp = parsePath(locationProp);
+  }
+  let {
+    pathname = "/",
+    search = "",
+    hash: hash2 = "",
+    state = null,
+    key = "default"
+  } = locationProp;
+  let locationContext = reactExports.useMemo(() => {
+    let trailingPathname = stripBasename(pathname, basename);
+    if (trailingPathname == null) {
+      return null;
+    }
+    return {
+      location: {
+        pathname: trailingPathname,
+        search,
+        hash: hash2,
+        state,
+        key
+      },
+      navigationType
+    };
+  }, [basename, pathname, search, hash2, state, key, navigationType]);
+  warning(
+    locationContext != null,
+    `<Router basename="${basename}"> is not able to match the URL "${pathname}${search}${hash2}" because it does not start with the basename, so the <Router> won't render anything.`
+  );
+  if (locationContext == null) {
+    return null;
+  }
+  return /* @__PURE__ */ reactExports.createElement(NavigationContext.Provider, { value: navigationContext }, /* @__PURE__ */ reactExports.createElement(LocationContext.Provider, { children, value: locationContext }));
+}
+function Routes({
+  children,
+  location
+}) {
+  return useRoutes(createRoutesFromChildren(children), location);
+}
+function createRoutesFromChildren(children, parentPath = []) {
+  let routes = [];
+  reactExports.Children.forEach(children, (element, index) => {
+    if (!reactExports.isValidElement(element)) {
+      return;
+    }
+    let treePath = [...parentPath, index];
+    if (element.type === reactExports.Fragment) {
+      routes.push.apply(
+        routes,
+        createRoutesFromChildren(element.props.children, treePath)
+      );
+      return;
+    }
+    invariant(
+      element.type === Route,
+      `[${typeof element.type === "string" ? element.type : element.type.name}] is not a <Route> component. All component children of <Routes> must be a <Route> or <React.Fragment>`
+    );
+    invariant(
+      !element.props.index || !element.props.children,
+      "An index route cannot have child routes."
+    );
+    let route = {
+      id: element.props.id || treePath.join("-"),
+      caseSensitive: element.props.caseSensitive,
+      element: element.props.element,
+      Component: element.props.Component,
+      index: element.props.index,
+      path: element.props.path,
+      loader: element.props.loader,
+      action: element.props.action,
+      hydrateFallbackElement: element.props.hydrateFallbackElement,
+      HydrateFallback: element.props.HydrateFallback,
+      errorElement: element.props.errorElement,
+      ErrorBoundary: element.props.ErrorBoundary,
+      hasErrorBoundary: element.props.hasErrorBoundary === true || element.props.ErrorBoundary != null || element.props.errorElement != null,
+      shouldRevalidate: element.props.shouldRevalidate,
+      handle: element.props.handle,
+      lazy: element.props.lazy
+    };
+    if (element.props.children) {
+      route.children = createRoutesFromChildren(
+        element.props.children,
+        treePath
+      );
+    }
+    routes.push(route);
+  });
+  return routes;
+}
+var defaultMethod = "get";
+var defaultEncType = "application/x-www-form-urlencoded";
+function isHtmlElement(object) {
+  return object != null && typeof object.tagName === "string";
+}
+function isButtonElement(object) {
+  return isHtmlElement(object) && object.tagName.toLowerCase() === "button";
+}
+function isFormElement(object) {
+  return isHtmlElement(object) && object.tagName.toLowerCase() === "form";
+}
+function isInputElement(object) {
+  return isHtmlElement(object) && object.tagName.toLowerCase() === "input";
+}
+function isModifiedEvent(event) {
+  return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
+}
+function shouldProcessLinkClick(event, target) {
+  return event.button === 0 && // Ignore everything but left clicks
+  (!target || target === "_self") && // Let browser handle "target=_blank" etc.
+  !isModifiedEvent(event);
+}
+var _formDataSupportsSubmitter = null;
+function isFormDataSubmitterSupported() {
+  if (_formDataSupportsSubmitter === null) {
+    try {
+      new FormData(
+        document.createElement("form"),
+        // @ts-expect-error if FormData supports the submitter parameter, this will throw
+        0
+      );
+      _formDataSupportsSubmitter = false;
+    } catch (e) {
+      _formDataSupportsSubmitter = true;
+    }
+  }
+  return _formDataSupportsSubmitter;
+}
+var supportedFormEncTypes = /* @__PURE__ */ new Set([
+  "application/x-www-form-urlencoded",
+  "multipart/form-data",
+  "text/plain"
+]);
+function getFormEncType(encType) {
+  if (encType != null && !supportedFormEncTypes.has(encType)) {
+    warning(
+      false,
+      `"${encType}" is not a valid \`encType\` for \`<Form>\`/\`<fetcher.Form>\` and will default to "${defaultEncType}"`
+    );
+    return null;
+  }
+  return encType;
+}
+function getFormSubmissionInfo(target, basename) {
+  let method;
+  let action;
+  let encType;
+  let formData;
+  let body;
+  if (isFormElement(target)) {
+    let attr = target.getAttribute("action");
+    action = attr ? stripBasename(attr, basename) : null;
+    method = target.getAttribute("method") || defaultMethod;
+    encType = getFormEncType(target.getAttribute("enctype")) || defaultEncType;
+    formData = new FormData(target);
+  } else if (isButtonElement(target) || isInputElement(target) && (target.type === "submit" || target.type === "image")) {
+    let form = target.form;
+    if (form == null) {
+      throw new Error(
+        `Cannot submit a <button> or <input type="submit"> without a <form>`
+      );
+    }
+    let attr = target.getAttribute("formaction") || form.getAttribute("action");
+    action = attr ? stripBasename(attr, basename) : null;
+    method = target.getAttribute("formmethod") || form.getAttribute("method") || defaultMethod;
+    encType = getFormEncType(target.getAttribute("formenctype")) || getFormEncType(form.getAttribute("enctype")) || defaultEncType;
+    formData = new FormData(form, target);
+    if (!isFormDataSubmitterSupported()) {
+      let { name, type, value } = target;
+      if (type === "image") {
+        let prefix2 = name ? `${name}.` : "";
+        formData.append(`${prefix2}x`, "0");
+        formData.append(`${prefix2}y`, "0");
+      } else if (name) {
+        formData.append(name, value);
+      }
+    }
+  } else if (isHtmlElement(target)) {
+    throw new Error(
+      `Cannot submit element that is not <form>, <button>, or <input type="submit|image">`
+    );
+  } else {
+    method = defaultMethod;
+    action = null;
+    encType = defaultEncType;
+    body = target;
+  }
+  if (formData && encType === "text/plain") {
+    body = formData;
+    formData = void 0;
+  }
+  return { action, method: method.toLowerCase(), encType, formData, body };
+}
+function invariant2(value, message) {
+  if (value === false || value === null || typeof value === "undefined") {
+    throw new Error(message);
+  }
+}
+async function loadRouteModule(route, routeModulesCache) {
+  if (route.id in routeModulesCache) {
+    return routeModulesCache[route.id];
+  }
+  try {
+    let routeModule = await import(
+      /* @vite-ignore */
+      /* webpackIgnore: true */
+      route.module
+    );
+    routeModulesCache[route.id] = routeModule;
+    return routeModule;
+  } catch (error) {
+    console.error(
+      `Error loading route module \`${route.module}\`, reloading page...`
+    );
+    console.error(error);
+    if (window.__reactRouterContext && window.__reactRouterContext.isSpaMode && // @ts-expect-error
+    void 0) ;
+    window.location.reload();
+    return new Promise(() => {
+    });
+  }
+}
+function isHtmlLinkDescriptor(object) {
+  if (object == null) {
+    return false;
+  }
+  if (object.href == null) {
+    return object.rel === "preload" && typeof object.imageSrcSet === "string" && typeof object.imageSizes === "string";
+  }
+  return typeof object.rel === "string" && typeof object.href === "string";
+}
+async function getKeyedPrefetchLinks(matches, manifest, routeModules) {
+  let links = await Promise.all(
+    matches.map(async (match2) => {
+      let route = manifest.routes[match2.route.id];
+      if (route) {
+        let mod = await loadRouteModule(route, routeModules);
+        return mod.links ? mod.links() : [];
+      }
+      return [];
+    })
+  );
+  return dedupeLinkDescriptors(
+    links.flat(1).filter(isHtmlLinkDescriptor).filter((link) => link.rel === "stylesheet" || link.rel === "preload").map(
+      (link) => link.rel === "stylesheet" ? { ...link, rel: "prefetch", as: "style" } : { ...link, rel: "prefetch" }
+    )
+  );
+}
+function getNewMatchesForLinks(page, nextMatches, currentMatches, manifest, location, mode) {
+  let isNew = (match2, index) => {
+    if (!currentMatches[index]) return true;
+    return match2.route.id !== currentMatches[index].route.id;
+  };
+  let matchPathChanged = (match2, index) => {
+    var _a;
+    return (
+      // param change, /users/123 -> /users/456
+      currentMatches[index].pathname !== match2.pathname || // splat param changed, which is not present in match.path
+      // e.g. /files/images/avatar.jpg -> files/finances.xls
+      ((_a = currentMatches[index].route.path) == null ? void 0 : _a.endsWith("*")) && currentMatches[index].params["*"] !== match2.params["*"]
+    );
+  };
+  if (mode === "assets") {
+    return nextMatches.filter(
+      (match2, index) => isNew(match2, index) || matchPathChanged(match2, index)
+    );
+  }
+  if (mode === "data") {
+    return nextMatches.filter((match2, index) => {
+      var _a;
+      let manifestRoute = manifest.routes[match2.route.id];
+      if (!manifestRoute || !manifestRoute.hasLoader) {
+        return false;
+      }
+      if (isNew(match2, index) || matchPathChanged(match2, index)) {
+        return true;
+      }
+      if (match2.route.shouldRevalidate) {
+        let routeChoice = match2.route.shouldRevalidate({
+          currentUrl: new URL(
+            location.pathname + location.search + location.hash,
+            window.origin
+          ),
+          currentParams: ((_a = currentMatches[0]) == null ? void 0 : _a.params) || {},
+          nextUrl: new URL(page, window.origin),
+          nextParams: match2.params,
+          defaultShouldRevalidate: true
+        });
+        if (typeof routeChoice === "boolean") {
+          return routeChoice;
+        }
+      }
+      return true;
+    });
+  }
+  return [];
+}
+function getModuleLinkHrefs(matches, manifest, { includeHydrateFallback } = {}) {
+  return dedupeHrefs(
+    matches.map((match2) => {
+      let route = manifest.routes[match2.route.id];
+      if (!route) return [];
+      let hrefs = [route.module];
+      if (route.clientActionModule) {
+        hrefs = hrefs.concat(route.clientActionModule);
+      }
+      if (route.clientLoaderModule) {
+        hrefs = hrefs.concat(route.clientLoaderModule);
+      }
+      if (includeHydrateFallback && route.hydrateFallbackModule) {
+        hrefs = hrefs.concat(route.hydrateFallbackModule);
+      }
+      if (route.imports) {
+        hrefs = hrefs.concat(route.imports);
+      }
+      return hrefs;
+    }).flat(1)
+  );
+}
+function dedupeHrefs(hrefs) {
+  return [...new Set(hrefs)];
+}
+function sortKeys(obj) {
+  let sorted = {};
+  let keys = Object.keys(obj).sort();
+  for (let key of keys) {
+    sorted[key] = obj[key];
+  }
+  return sorted;
+}
+function dedupeLinkDescriptors(descriptors, preloads) {
+  let set = /* @__PURE__ */ new Set();
+  new Set(preloads);
+  return descriptors.reduce((deduped, descriptor) => {
+    let key = JSON.stringify(sortKeys(descriptor));
+    if (!set.has(key)) {
+      set.add(key);
+      deduped.push({ key, link: descriptor });
+    }
+    return deduped;
+  }, []);
+}
+var NO_BODY_STATUS_CODES = /* @__PURE__ */ new Set([100, 101, 204, 205]);
+function singleFetchUrl(reqUrl, basename) {
+  let url = typeof reqUrl === "string" ? new URL(
+    reqUrl,
+    // This can be called during the SSR flow via PrefetchPageLinksImpl so
+    // don't assume window is available
+    typeof window === "undefined" ? "server://singlefetch/" : window.location.origin
+  ) : reqUrl;
+  if (url.pathname === "/") {
+    url.pathname = "_root.data";
+  } else if (basename && stripBasename(url.pathname, basename) === "/") {
+    url.pathname = `${basename.replace(/\/$/, "")}/_root.data`;
+  } else {
+    url.pathname = `${url.pathname.replace(/\/$/, "")}.data`;
+  }
+  return url;
+}
+function useDataRouterContext2() {
+  let context = reactExports.useContext(DataRouterContext);
+  invariant2(
+    context,
+    "You must render this element inside a <DataRouterContext.Provider> element"
+  );
+  return context;
+}
+function useDataRouterStateContext() {
+  let context = reactExports.useContext(DataRouterStateContext);
+  invariant2(
+    context,
+    "You must render this element inside a <DataRouterStateContext.Provider> element"
+  );
+  return context;
+}
+var FrameworkContext = reactExports.createContext(void 0);
+FrameworkContext.displayName = "FrameworkContext";
+function useFrameworkContext() {
+  let context = reactExports.useContext(FrameworkContext);
+  invariant2(
+    context,
+    "You must render this element inside a <HydratedRouter> element"
+  );
+  return context;
+}
+function usePrefetchBehavior(prefetch, theirElementProps) {
+  let frameworkContext = reactExports.useContext(FrameworkContext);
+  let [maybePrefetch, setMaybePrefetch] = reactExports.useState(false);
+  let [shouldPrefetch, setShouldPrefetch] = reactExports.useState(false);
+  let { onFocus, onBlur, onMouseEnter, onMouseLeave, onTouchStart } = theirElementProps;
+  let ref = reactExports.useRef(null);
+  reactExports.useEffect(() => {
+    if (prefetch === "render") {
+      setShouldPrefetch(true);
+    }
+    if (prefetch === "viewport") {
+      let callback = (entries) => {
+        entries.forEach((entry) => {
+          setShouldPrefetch(entry.isIntersecting);
+        });
+      };
+      let observer = new IntersectionObserver(callback, { threshold: 0.5 });
+      if (ref.current) observer.observe(ref.current);
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, [prefetch]);
+  reactExports.useEffect(() => {
+    if (maybePrefetch) {
+      let id = setTimeout(() => {
+        setShouldPrefetch(true);
+      }, 100);
+      return () => {
+        clearTimeout(id);
+      };
+    }
+  }, [maybePrefetch]);
+  let setIntent = () => {
+    setMaybePrefetch(true);
+  };
+  let cancelIntent = () => {
+    setMaybePrefetch(false);
+    setShouldPrefetch(false);
+  };
+  if (!frameworkContext) {
+    return [false, ref, {}];
+  }
+  if (prefetch !== "intent") {
+    return [shouldPrefetch, ref, {}];
+  }
+  return [
+    shouldPrefetch,
+    ref,
+    {
+      onFocus: composeEventHandlers(onFocus, setIntent),
+      onBlur: composeEventHandlers(onBlur, cancelIntent),
+      onMouseEnter: composeEventHandlers(onMouseEnter, setIntent),
+      onMouseLeave: composeEventHandlers(onMouseLeave, cancelIntent),
+      onTouchStart: composeEventHandlers(onTouchStart, setIntent)
+    }
+  ];
+}
+function composeEventHandlers(theirHandler, ourHandler) {
+  return (event) => {
+    theirHandler && theirHandler(event);
+    if (!event.defaultPrevented) {
+      ourHandler(event);
+    }
+  };
+}
+function PrefetchPageLinks({
+  page,
+  ...dataLinkProps
+}) {
+  let { router } = useDataRouterContext2();
+  let matches = reactExports.useMemo(
+    () => matchRoutes(router.routes, page, router.basename),
+    [router.routes, page, router.basename]
+  );
+  if (!matches) {
+    return null;
+  }
+  return /* @__PURE__ */ reactExports.createElement(PrefetchPageLinksImpl, { page, matches, ...dataLinkProps });
+}
+function useKeyedPrefetchLinks(matches) {
+  let { manifest, routeModules } = useFrameworkContext();
+  let [keyedPrefetchLinks, setKeyedPrefetchLinks] = reactExports.useState([]);
+  reactExports.useEffect(() => {
+    let interrupted = false;
+    void getKeyedPrefetchLinks(matches, manifest, routeModules).then(
+      (links) => {
+        if (!interrupted) {
+          setKeyedPrefetchLinks(links);
+        }
+      }
+    );
+    return () => {
+      interrupted = true;
+    };
+  }, [matches, manifest, routeModules]);
+  return keyedPrefetchLinks;
+}
+function PrefetchPageLinksImpl({
+  page,
+  matches: nextMatches,
+  ...linkProps
+}) {
+  let location = useLocation();
+  let { manifest, routeModules } = useFrameworkContext();
+  let { basename } = useDataRouterContext2();
+  let { loaderData, matches } = useDataRouterStateContext();
+  let newMatchesForData = reactExports.useMemo(
+    () => getNewMatchesForLinks(
+      page,
+      nextMatches,
+      matches,
+      manifest,
+      location,
+      "data"
+    ),
+    [page, nextMatches, matches, manifest, location]
+  );
+  let newMatchesForAssets = reactExports.useMemo(
+    () => getNewMatchesForLinks(
+      page,
+      nextMatches,
+      matches,
+      manifest,
+      location,
+      "assets"
+    ),
+    [page, nextMatches, matches, manifest, location]
+  );
+  let dataHrefs = reactExports.useMemo(() => {
+    if (page === location.pathname + location.search + location.hash) {
+      return [];
+    }
+    let routesParams = /* @__PURE__ */ new Set();
+    let foundOptOutRoute = false;
+    nextMatches.forEach((m) => {
+      var _a;
+      let manifestRoute = manifest.routes[m.route.id];
+      if (!manifestRoute || !manifestRoute.hasLoader) {
+        return;
+      }
+      if (!newMatchesForData.some((m2) => m2.route.id === m.route.id) && m.route.id in loaderData && ((_a = routeModules[m.route.id]) == null ? void 0 : _a.shouldRevalidate)) {
+        foundOptOutRoute = true;
+      } else if (manifestRoute.hasClientLoader) {
+        foundOptOutRoute = true;
+      } else {
+        routesParams.add(m.route.id);
+      }
+    });
+    if (routesParams.size === 0) {
+      return [];
+    }
+    let url = singleFetchUrl(page, basename);
+    if (foundOptOutRoute && routesParams.size > 0) {
+      url.searchParams.set(
+        "_routes",
+        nextMatches.filter((m) => routesParams.has(m.route.id)).map((m) => m.route.id).join(",")
+      );
+    }
+    return [url.pathname + url.search];
+  }, [
+    basename,
+    loaderData,
+    location,
+    manifest,
+    newMatchesForData,
+    nextMatches,
+    page,
+    routeModules
+  ]);
+  let moduleHrefs = reactExports.useMemo(
+    () => getModuleLinkHrefs(newMatchesForAssets, manifest),
+    [newMatchesForAssets, manifest]
+  );
+  let keyedPrefetchLinks = useKeyedPrefetchLinks(newMatchesForAssets);
+  return /* @__PURE__ */ reactExports.createElement(reactExports.Fragment, null, dataHrefs.map((href2) => /* @__PURE__ */ reactExports.createElement("link", { key: href2, rel: "prefetch", as: "fetch", href: href2, ...linkProps })), moduleHrefs.map((href2) => /* @__PURE__ */ reactExports.createElement("link", { key: href2, rel: "modulepreload", href: href2, ...linkProps })), keyedPrefetchLinks.map(({ key, link }) => (
+    // these don't spread `linkProps` because they are full link descriptors
+    // already with their own props
+    /* @__PURE__ */ reactExports.createElement("link", { key, ...link })
+  )));
+}
+function mergeRefs(...refs) {
+  return (value) => {
+    refs.forEach((ref) => {
+      if (typeof ref === "function") {
+        ref(value);
+      } else if (ref != null) {
+        ref.current = value;
+      }
+    });
+  };
+}
+var isBrowser$1 = typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined";
+try {
+  if (isBrowser$1) {
+    window.__reactRouterVersion = "7.5.2";
+  }
+} catch (e) {
+}
+function BrowserRouter({
+  basename,
+  children,
+  window: window2
+}) {
+  let historyRef = reactExports.useRef();
+  if (historyRef.current == null) {
+    historyRef.current = createBrowserHistory({ window: window2, v5Compat: true });
+  }
+  let history = historyRef.current;
+  let [state, setStateImpl] = reactExports.useState({
+    action: history.action,
+    location: history.location
+  });
+  let setState = reactExports.useCallback(
+    (newState) => {
+      reactExports.startTransition(() => setStateImpl(newState));
+    },
+    [setStateImpl]
+  );
+  reactExports.useLayoutEffect(() => history.listen(setState), [history, setState]);
+  return /* @__PURE__ */ reactExports.createElement(
+    Router,
+    {
+      basename,
+      children,
+      location: state.location,
+      navigationType: state.action,
+      navigator: history
+    }
+  );
+}
+var ABSOLUTE_URL_REGEX2 = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i;
+var Link = reactExports.forwardRef(
+  function LinkWithRef({
+    onClick,
+    discover = "render",
+    prefetch = "none",
+    relative,
+    reloadDocument,
+    replace: replace2,
+    state,
+    target,
+    to,
+    preventScrollReset,
+    viewTransition,
+    ...rest
+  }, forwardedRef) {
+    let { basename } = reactExports.useContext(NavigationContext);
+    let isAbsolute = typeof to === "string" && ABSOLUTE_URL_REGEX2.test(to);
+    let absoluteHref;
+    let isExternal = false;
+    if (typeof to === "string" && isAbsolute) {
+      absoluteHref = to;
+      if (isBrowser$1) {
+        try {
+          let currentUrl = new URL(window.location.href);
+          let targetUrl = to.startsWith("//") ? new URL(currentUrl.protocol + to) : new URL(to);
+          let path = stripBasename(targetUrl.pathname, basename);
+          if (targetUrl.origin === currentUrl.origin && path != null) {
+            to = path + targetUrl.search + targetUrl.hash;
+          } else {
+            isExternal = true;
+          }
+        } catch (e) {
+          warning(
+            false,
+            `<Link to="${to}"> contains an invalid URL which will probably break when clicked - please update to a valid URL path.`
+          );
+        }
+      }
+    }
+    let href2 = useHref(to, { relative });
+    let [shouldPrefetch, prefetchRef, prefetchHandlers] = usePrefetchBehavior(
+      prefetch,
+      rest
+    );
+    let internalOnClick = useLinkClickHandler(to, {
+      replace: replace2,
+      state,
+      target,
+      preventScrollReset,
+      relative,
+      viewTransition
+    });
+    function handleClick(event) {
+      if (onClick) onClick(event);
+      if (!event.defaultPrevented) {
+        internalOnClick(event);
+      }
+    }
+    let link = (
+      // eslint-disable-next-line jsx-a11y/anchor-has-content
+      /* @__PURE__ */ reactExports.createElement(
+        "a",
+        {
+          ...rest,
+          ...prefetchHandlers,
+          href: absoluteHref || href2,
+          onClick: isExternal || reloadDocument ? onClick : handleClick,
+          ref: mergeRefs(forwardedRef, prefetchRef),
+          target,
+          "data-discover": !isAbsolute && discover === "render" ? "true" : void 0
+        }
+      )
+    );
+    return shouldPrefetch && !isAbsolute ? /* @__PURE__ */ reactExports.createElement(reactExports.Fragment, null, link, /* @__PURE__ */ reactExports.createElement(PrefetchPageLinks, { page: href2 })) : link;
+  }
+);
+Link.displayName = "Link";
+var NavLink = reactExports.forwardRef(
+  function NavLinkWithRef({
+    "aria-current": ariaCurrentProp = "page",
+    caseSensitive = false,
+    className: classNameProp = "",
+    end = false,
+    style: styleProp,
+    to,
+    viewTransition,
+    children,
+    ...rest
+  }, ref) {
+    let path = useResolvedPath(to, { relative: rest.relative });
+    let location = useLocation();
+    let routerState = reactExports.useContext(DataRouterStateContext);
+    let { navigator: navigator2, basename } = reactExports.useContext(NavigationContext);
+    let isTransitioning = routerState != null && // Conditional usage is OK here because the usage of a data router is static
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useViewTransitionState(path) && viewTransition === true;
+    let toPathname = navigator2.encodeLocation ? navigator2.encodeLocation(path).pathname : path.pathname;
+    let locationPathname = location.pathname;
+    let nextLocationPathname = routerState && routerState.navigation && routerState.navigation.location ? routerState.navigation.location.pathname : null;
+    if (!caseSensitive) {
+      locationPathname = locationPathname.toLowerCase();
+      nextLocationPathname = nextLocationPathname ? nextLocationPathname.toLowerCase() : null;
+      toPathname = toPathname.toLowerCase();
+    }
+    if (nextLocationPathname && basename) {
+      nextLocationPathname = stripBasename(nextLocationPathname, basename) || nextLocationPathname;
+    }
+    const endSlashPosition = toPathname !== "/" && toPathname.endsWith("/") ? toPathname.length - 1 : toPathname.length;
+    let isActive = locationPathname === toPathname || !end && locationPathname.startsWith(toPathname) && locationPathname.charAt(endSlashPosition) === "/";
+    let isPending = nextLocationPathname != null && (nextLocationPathname === toPathname || !end && nextLocationPathname.startsWith(toPathname) && nextLocationPathname.charAt(toPathname.length) === "/");
+    let renderProps = {
+      isActive,
+      isPending,
+      isTransitioning
+    };
+    let ariaCurrent = isActive ? ariaCurrentProp : void 0;
+    let className;
+    if (typeof classNameProp === "function") {
+      className = classNameProp(renderProps);
+    } else {
+      className = [
+        classNameProp,
+        isActive ? "active" : null,
+        isPending ? "pending" : null,
+        isTransitioning ? "transitioning" : null
+      ].filter(Boolean).join(" ");
+    }
+    let style = typeof styleProp === "function" ? styleProp(renderProps) : styleProp;
+    return /* @__PURE__ */ reactExports.createElement(
+      Link,
+      {
+        ...rest,
+        "aria-current": ariaCurrent,
+        className,
+        ref,
+        style,
+        to,
+        viewTransition
+      },
+      typeof children === "function" ? children(renderProps) : children
+    );
+  }
+);
+NavLink.displayName = "NavLink";
+var Form$1 = reactExports.forwardRef(
+  ({
+    discover = "render",
+    fetcherKey,
+    navigate,
+    reloadDocument,
+    replace: replace2,
+    state,
+    method = defaultMethod,
+    action,
+    onSubmit,
+    relative,
+    preventScrollReset,
+    viewTransition,
+    ...props
+  }, forwardedRef) => {
+    let submit = useSubmit();
+    let formAction = useFormAction(action, { relative });
+    let formMethod = method.toLowerCase() === "get" ? "get" : "post";
+    let isAbsolute = typeof action === "string" && ABSOLUTE_URL_REGEX2.test(action);
+    let submitHandler = (event) => {
+      onSubmit && onSubmit(event);
+      if (event.defaultPrevented) return;
+      event.preventDefault();
+      let submitter = event.nativeEvent.submitter;
+      let submitMethod = (submitter == null ? void 0 : submitter.getAttribute("formmethod")) || method;
+      submit(submitter || event.currentTarget, {
+        fetcherKey,
+        method: submitMethod,
+        navigate,
+        replace: replace2,
+        state,
+        relative,
+        preventScrollReset,
+        viewTransition
+      });
+    };
+    return /* @__PURE__ */ reactExports.createElement(
+      "form",
+      {
+        ref: forwardedRef,
+        method: formMethod,
+        action: formAction,
+        onSubmit: reloadDocument ? onSubmit : submitHandler,
+        ...props,
+        "data-discover": !isAbsolute && discover === "render" ? "true" : void 0
+      }
+    );
+  }
+);
+Form$1.displayName = "Form";
+function getDataRouterConsoleError2(hookName) {
+  return `${hookName} must be used within a data router.  See https://reactrouter.com/en/main/routers/picking-a-router.`;
+}
+function useDataRouterContext3(hookName) {
+  let ctx = reactExports.useContext(DataRouterContext);
+  invariant(ctx, getDataRouterConsoleError2(hookName));
+  return ctx;
+}
+function useLinkClickHandler(to, {
+  target,
+  replace: replaceProp,
+  state,
+  preventScrollReset,
+  relative,
+  viewTransition
+} = {}) {
+  let navigate = useNavigate();
+  let location = useLocation();
+  let path = useResolvedPath(to, { relative });
+  return reactExports.useCallback(
+    (event) => {
+      if (shouldProcessLinkClick(event, target)) {
+        event.preventDefault();
+        let replace2 = replaceProp !== void 0 ? replaceProp : createPath(location) === createPath(path);
+        navigate(to, {
+          replace: replace2,
+          state,
+          preventScrollReset,
+          relative,
+          viewTransition
+        });
+      }
+    },
+    [
+      location,
+      navigate,
+      path,
+      replaceProp,
+      state,
+      target,
+      to,
+      preventScrollReset,
+      relative,
+      viewTransition
+    ]
+  );
+}
+var fetcherId = 0;
+var getUniqueFetcherId = () => `__${String(++fetcherId)}__`;
+function useSubmit() {
+  let { router } = useDataRouterContext3(
+    "useSubmit"
+    /* UseSubmit */
+  );
+  let { basename } = reactExports.useContext(NavigationContext);
+  let currentRouteId = useRouteId();
+  return reactExports.useCallback(
+    async (target, options2 = {}) => {
+      let { action, method, encType, formData, body } = getFormSubmissionInfo(
+        target,
+        basename
+      );
+      if (options2.navigate === false) {
+        let key = options2.fetcherKey || getUniqueFetcherId();
+        await router.fetch(key, currentRouteId, options2.action || action, {
+          preventScrollReset: options2.preventScrollReset,
+          formData,
+          body,
+          formMethod: options2.method || method,
+          formEncType: options2.encType || encType,
+          flushSync: options2.flushSync
+        });
+      } else {
+        await router.navigate(options2.action || action, {
+          preventScrollReset: options2.preventScrollReset,
+          formData,
+          body,
+          formMethod: options2.method || method,
+          formEncType: options2.encType || encType,
+          replace: options2.replace,
+          state: options2.state,
+          fromRouteId: currentRouteId,
+          flushSync: options2.flushSync,
+          viewTransition: options2.viewTransition
+        });
+      }
+    },
+    [router, basename, currentRouteId]
+  );
+}
+function useFormAction(action, { relative } = {}) {
+  let { basename } = reactExports.useContext(NavigationContext);
+  let routeContext = reactExports.useContext(RouteContext);
+  invariant(routeContext, "useFormAction must be used inside a RouteContext");
+  let [match2] = routeContext.matches.slice(-1);
+  let path = { ...useResolvedPath(action ? action : ".", { relative }) };
+  let location = useLocation();
+  if (action == null) {
+    path.search = location.search;
+    let params = new URLSearchParams(path.search);
+    let indexValues = params.getAll("index");
+    let hasNakedIndexParam = indexValues.some((v) => v === "");
+    if (hasNakedIndexParam) {
+      params.delete("index");
+      indexValues.filter((v) => v).forEach((v) => params.append("index", v));
+      let qs = params.toString();
+      path.search = qs ? `?${qs}` : "";
+    }
+  }
+  if ((!action || action === ".") && match2.route.index) {
+    path.search = path.search ? path.search.replace(/^\?/, "?index&") : "?index";
+  }
+  if (basename !== "/") {
+    path.pathname = path.pathname === "/" ? basename : joinPaths([basename, path.pathname]);
+  }
+  return createPath(path);
+}
+function useViewTransitionState(to, opts = {}) {
+  let vtContext = reactExports.useContext(ViewTransitionContext);
+  invariant(
+    vtContext != null,
+    "`useViewTransitionState` must be used within `react-router-dom`'s `RouterProvider`.  Did you accidentally import `RouterProvider` from `react-router`?"
+  );
+  let { basename } = useDataRouterContext3(
+    "useViewTransitionState"
+    /* useViewTransitionState */
+  );
+  let path = useResolvedPath(to, { relative: opts.relative });
+  if (!vtContext.isTransitioning) {
+    return false;
+  }
+  let currentPath = stripBasename(vtContext.currentLocation.pathname, basename) || vtContext.currentLocation.pathname;
+  let nextPath = stripBasename(vtContext.nextLocation.pathname, basename) || vtContext.nextLocation.pathname;
+  return matchPath(path.pathname, nextPath) != null || matchPath(path.pathname, currentPath) != null;
+}
+new TextEncoder();
+/* @__PURE__ */ new Set([
+  ...NO_BODY_STATUS_CODES,
+  304
+]);
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -12128,18 +14367,18 @@ function sheetForTag(tag) {
   }
   return void 0;
 }
-function createStyleElement(options) {
+function createStyleElement(options2) {
   var tag = document.createElement("style");
-  tag.setAttribute("data-emotion", options.key);
-  if (options.nonce !== void 0) {
-    tag.setAttribute("nonce", options.nonce);
+  tag.setAttribute("data-emotion", options2.key);
+  if (options2.nonce !== void 0) {
+    tag.setAttribute("nonce", options2.nonce);
   }
   tag.appendChild(document.createTextNode(""));
   tag.setAttribute("data-s", "");
   return tag;
 }
 var StyleSheet = /* @__PURE__ */ function() {
-  function StyleSheet2(options) {
+  function StyleSheet2(options2) {
     var _this = this;
     this._insertTag = function(tag) {
       var before;
@@ -12157,14 +14396,14 @@ var StyleSheet = /* @__PURE__ */ function() {
       _this.container.insertBefore(tag, before);
       _this.tags.push(tag);
     };
-    this.isSpeedy = options.speedy === void 0 ? true : options.speedy;
+    this.isSpeedy = options2.speedy === void 0 ? true : options2.speedy;
     this.tags = [];
     this.ctr = 0;
-    this.nonce = options.nonce;
-    this.key = options.key;
-    this.container = options.container;
-    this.prepend = options.prepend;
-    this.insertionPoint = options.insertionPoint;
+    this.nonce = options2.nonce;
+    this.key = options2.key;
+    this.container = options2.container;
+    this.prepend = options2.prepend;
+    this.insertionPoint = options2.insertionPoint;
     this.before = null;
   }
   var _proto = StyleSheet2.prototype;
@@ -12836,8 +15075,8 @@ var prefixer = function prefixer2(element, index, children, callback) {
   }
 };
 var defaultStylisPlugins = [prefixer];
-var createCache = function createCache2(options) {
-  var key = options.key;
+var createCache = function createCache2(options2) {
+  var key = options2.key;
   if (key === "css") {
     var ssrStyles = document.querySelectorAll("style[data-emotion]:not([data-s])");
     Array.prototype.forEach.call(ssrStyles, function(node2) {
@@ -12849,12 +15088,12 @@ var createCache = function createCache2(options) {
       node2.setAttribute("data-s", "");
     });
   }
-  var stylisPlugins = options.stylisPlugins || defaultStylisPlugins;
+  var stylisPlugins = options2.stylisPlugins || defaultStylisPlugins;
   var inserted = {};
   var container;
   var nodesToHydrate = [];
   {
-    container = options.container || document.head;
+    container = options2.container || document.head;
     Array.prototype.forEach.call(
       // this means we will ignore elements which don't have a space in them which
       // means that the style elements we're looking at are only Emotion 11 server-rendered style elements
@@ -12892,12 +15131,12 @@ var createCache = function createCache2(options) {
     sheet: new StyleSheet({
       key,
       container,
-      nonce: options.nonce,
-      speedy: options.speedy,
-      prepend: options.prepend,
-      insertionPoint: options.insertionPoint
+      nonce: options2.nonce,
+      speedy: options2.speedy,
+      prepend: options2.prepend,
+      insertionPoint: options2.insertionPoint
     }),
-    nonce: options.nonce,
+    nonce: options2.nonce,
     inserted,
     registered: {},
     insert: _insert
@@ -13231,10 +15470,10 @@ var getDefaultShouldForwardProp = function getDefaultShouldForwardProp2(tag) {
   // it's a lowercase character
   tag.charCodeAt(0) > 96 ? testOmitPropsOnStringTag : testOmitPropsOnComponent;
 };
-var composeShouldForwardProps = function composeShouldForwardProps2(tag, options, isReal) {
+var composeShouldForwardProps = function composeShouldForwardProps2(tag, options2, isReal) {
   var shouldForwardProp;
-  if (options) {
-    var optionsShouldForwardProp = options.shouldForwardProp;
+  if (options2) {
+    var optionsShouldForwardProp = options2.shouldForwardProp;
     shouldForwardProp = tag.__emotion_forwardProp && optionsShouldForwardProp ? function(propName) {
       return tag.__emotion_forwardProp(propName) && optionsShouldForwardProp(propName);
     } : optionsShouldForwardProp;
@@ -13252,16 +15491,16 @@ var Insertion = function Insertion2(_ref) {
   });
   return null;
 };
-var createStyled = function createStyled2(tag, options) {
+var createStyled = function createStyled2(tag, options2) {
   var isReal = tag.__emotion_real === tag;
   var baseTag = isReal && tag.__emotion_base || tag;
   var identifierName;
   var targetClassName;
-  if (options !== void 0) {
-    identifierName = options.label;
-    targetClassName = options.target;
+  if (options2 !== void 0) {
+    identifierName = options2.label;
+    targetClassName = options2.target;
   }
-  var shouldForwardProp = composeShouldForwardProps(tag, options, isReal);
+  var shouldForwardProp = composeShouldForwardProps(tag, options2, isReal);
   var defaultShouldForwardProp = shouldForwardProp || getDefaultShouldForwardProp(baseTag);
   var shouldUseAs = !defaultShouldForwardProp("as");
   return function() {
@@ -13333,7 +15572,7 @@ var createStyled = function createStyled2(tag, options) {
       }
     });
     Styled.withComponent = function(nextTag, nextOptions) {
-      var newStyled2 = createStyled2(nextTag, _extends({}, options, nextOptions, {
+      var newStyled2 = createStyled2(nextTag, _extends({}, options2, nextOptions, {
         shouldForwardProp: composeShouldForwardProps(Styled, nextOptions, true)
       }));
       return newStyled2.apply(void 0, styles);
@@ -13482,13 +15721,13 @@ var newStyled = createStyled.bind(null);
 tags.forEach(function(tagName) {
   newStyled[tagName] = newStyled(tagName);
 });
-const InputLabels = ({ title, caption }) => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(InputLabelsContainer, { children: [
+const FormLabel = ({ title, caption }) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(FormLabelsContainer, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Title, { children: title }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Caption, { children: caption || "" })
   ] });
 };
-const InputLabelsContainer = newStyled.div`
+const FormLabelsContainer = newStyled.div`
   width: 100%;
   margin-bottom: 16px;
 `;
@@ -13505,30 +15744,122 @@ const Caption = newStyled.p`
   vertical-align: middle;
   color: #8b95a1;
 `;
+const SingleInput = React.forwardRef(
+  ({
+    value,
+    placeholder,
+    maxLength,
+    error = false,
+    type = "text",
+    onChange,
+    onFocus,
+    onBlur
+  }, ref) => {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Input,
+      {
+        ref,
+        type,
+        value,
+        placeholder,
+        maxLength,
+        error,
+        onChange,
+        onFocus,
+        onBlur
+      }
+    );
+  }
+);
+const Input = newStyled.input`
+  width: 100%;
+  padding: 8px;
+  border: 1px solid ${(props) => props.error ? "red" : "#ccc"};
+  border-radius: 2px;
+  font-size: 11px;
+  outline: none;
+`;
+function useFocusGroup({
+  length: length2,
+  onComplete
+}) {
+  const inputRefs = reactExports.useRef([]);
+  const [values, setValues] = reactExports.useState(Array(length2).fill(""));
+  const getRefCallback = (index) => (el) => {
+    if (el) inputRefs.current[index] = el;
+  };
+  const handleInput = (e, index) => {
+    const value = e.target.value;
+    const maxLength = e.target.maxLength;
+    setValues((prev2) => {
+      const next2 = [...prev2];
+      next2[index] = value;
+      return next2;
+    });
+    if (value.length === maxLength) {
+      const nextInput = inputRefs.current[index + 1];
+      if (nextInput) {
+        nextInput.focus();
+      }
+    }
+  };
+  reactExports.useEffect(() => {
+    const allFilled = values.every((val, i) => {
+      const input = inputRefs.current[i];
+      return input && val.length === input.maxLength;
+    });
+    if (allFilled) {
+      onComplete == null ? void 0 : onComplete();
+    }
+  }, [values, onComplete]);
+  return {
+    getRefCallback,
+    handleInput
+  };
+}
+const getValue = (state, index) => {
+  if (typeof state === "string") {
+    return index === 0 ? state : "";
+  }
+  if ("month" in state)
+    return index === 0 ? state.month ?? "" : state.year ?? "";
+  const keys = ["first", "second", "third", "fourth"];
+  const key = keys[index];
+  return state[key] ?? "";
+};
 const InputTexts = ({
   label,
   placeholder,
   state,
   eventHandler,
   errors,
+  type,
   onFocus,
-  onBlur
+  onBlur,
+  onComplete
 }) => {
+  const { getRefCallback, handleInput } = useFocusGroup({
+    length: placeholder.length,
+    onComplete
+  });
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(InputTextsContainer, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { children: label }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Row, { children: placeholder.map((text, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Input,
+      SingleInput,
       {
-        type: "text",
+        ref: getRefCallback(index),
+        value: getValue(state, index),
         placeholder: text,
         maxLength: text.length,
-        value: state ? state[index] : "",
-        onChange: (e) => eventHandler(e, index),
+        error: errors ? errors[index] : false,
+        type,
+        onChange: (e) => {
+          eventHandler(e, index);
+          handleInput(e, index);
+        },
         onFocus,
-        onBlur,
-        error: errors ? errors[index] : false
-      },
-      index
+        onBlur
+      }
     )) })
   ] });
 };
@@ -13549,23 +15880,16 @@ const Row = newStyled.div`
   min-width: 100%;
   gap: 10px;
 `;
-const Input = newStyled.input`
-  width: 100%;
-  padding: 8px;
-  border: 1px solid ${(props) => props.error ? "red" : "#ccc"};
-  border-radius: 2px;
-  font-size: 11px;
-  outline: none;
-`;
 const CardNumbersView = ({
   cardNumbers,
   errorMessage,
   errors,
-  handleInputChange
+  handleInputChange,
+  onComplete
 }) => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$2, { "data-testid": "cardnumbers-component", children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$4, { "data-testid": "cardnumbers-component", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
-      InputLabels,
+      FormLabel,
       {
         title: "결제할 카드 번호를 입력해 주세요",
         caption: "본인 명의의 카드만 결제 가능합니다."
@@ -13578,13 +15902,147 @@ const CardNumbersView = ({
         placeholder: ["1234", "1234", "1234", "1234"],
         eventHandler: handleInputChange,
         state: cardNumbers,
-        errors
+        errors,
+        type: "text",
+        onComplete
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorMessage$3, { children: errorMessage })
+  ] });
+};
+const Container$4 = newStyled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+`;
+const ErrorMessage$3 = newStyled.div`
+  font-weight: 400;
+  font-size: 9.5px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: red;
+  height: 9.5px;
+`;
+function useErrorMessage(initialErrors) {
+  const [errors, setErrors] = reactExports.useState(initialErrors);
+  const [errorMessage, setErrorMessage] = reactExports.useState("");
+  reactExports.useEffect(() => {
+    if (errors.every((e) => e === false)) {
+      setErrorMessage("");
+    }
+  }, [errors]);
+  return {
+    errors,
+    setErrors,
+    errorMessage,
+    setErrorMessage
+  };
+}
+const CARD_NUMBERS_LENGTH = 4;
+const ERROR_MESSAGE$3 = "숫자만 입력 가능합니다.";
+const useCardNumbers = ({
+  cardNumbers,
+  setCardNumbers,
+  setCardNumbersError
+}) => {
+  const { errors, setErrors, errorMessage, setErrorMessage } = useErrorMessage([
+    false,
+    false
+  ]);
+  const keyMap = ["first", "second", "third", "fourth"];
+  reactExports.useEffect(() => {
+    const hasError = errors.some((error) => error === true) || !isCardNumbersLengthValid(cardNumbers);
+    setCardNumbersError(hasError);
+  }, [errors, cardNumbers, setCardNumbersError]);
+  const isCardNumbersLengthValid = (cardNumbers2) => {
+    return cardNumbers2.first.length === 4 && cardNumbers2.second.length === 4 && cardNumbers2.third.length === 4 && cardNumbers2.fourth.length === 4;
+  };
+  const updateErrors = (prev2, index, isError) => {
+    const newErrors = [...prev2];
+    newErrors[index] = isError;
+    return newErrors;
+  };
+  const handleInputChange = (e, index) => {
+    const value = e.target.value;
+    setCardNumbers((prev2) => {
+      const newState = { ...prev2 };
+      if (/^[0-9]*$/.test(value) && value.length <= CARD_NUMBERS_LENGTH) {
+        const key = keyMap[index];
+        newState[key] = value;
+        setErrors((prevErrors) => updateErrors(prevErrors, index, false));
+      } else {
+        setErrorMessage(ERROR_MESSAGE$3);
+        setErrors((prevErrors) => updateErrors(prevErrors, index, true));
+      }
+      return newState;
+    });
+  };
+  return {
+    errorMessage,
+    errors,
+    handleInputChange
+  };
+};
+const CardNumbers = ({
+  cardNumbers,
+  setCardNumbers,
+  onComplete,
+  setCardNumbersError
+}) => {
+  const { errorMessage, errors, handleInputChange } = useCardNumbers({
+    cardNumbers,
+    setCardNumbers,
+    setCardNumbersError
+  });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    CardNumbersView,
+    {
+      cardNumbers,
+      errorMessage,
+      errors,
+      handleInputChange,
+      onComplete
+    }
+  );
+};
+const ExpirationPeriodView = ({
+  period,
+  errorMessage,
+  errors,
+  handleInputChange,
+  onFocus,
+  onBlur,
+  onComplete
+}) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$3, { "data-testid": "expiration-component", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      FormLabel,
+      {
+        title: "카드 유효기간을 입력해 주세요",
+        caption: "월/년도(MMYY)를 순서대로 입력해 주세요."
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      InputTexts,
+      {
+        label: "유효기간",
+        placeholder: ["MM", "YY"],
+        state: period,
+        eventHandler: handleInputChange,
+        errors,
+        type: "text",
+        onFocus,
+        onBlur,
+        onComplete
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorMessage$2, { children: errorMessage })
   ] });
 };
-const Container$2 = newStyled.div`
+const Container$3 = newStyled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13600,100 +16058,7 @@ const ErrorMessage$2 = newStyled.div`
   color: red;
   height: 9.5px;
 `;
-const CARD_NUMBERS_LENGTH = 4;
-const ERROR_MESSAGE$2 = "숫자만 입력 가능합니다.";
-const CardNumbers = ({
-  cardNumbers,
-  setCardNumbers
-}) => {
-  const [errorMessage, setErrorMessage] = reactExports.useState("");
-  const [errors, setErrors] = reactExports.useState([false, false, false, false]);
-  reactExports.useEffect(() => {
-    if (errors.every((error) => error === false)) {
-      setErrorMessage("");
-    }
-  }, [errors]);
-  const handleInputChange = (e, index) => {
-    const value = e.target.value;
-    setCardNumbers((prev2) => {
-      const newState = [...prev2];
-      if (/^[0-9]*$/.test(value) && value.length <= CARD_NUMBERS_LENGTH) {
-        newState[index] = value;
-        setErrors((prevErrors) => {
-          const newErrors = [...prevErrors];
-          newErrors[index] = false;
-          return newErrors;
-        });
-      } else {
-        setErrorMessage(ERROR_MESSAGE$2);
-        setErrors((prevErrors) => {
-          const newErrors = [...prevErrors];
-          newErrors[index] = true;
-          return newErrors;
-        });
-      }
-      return newState;
-    });
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    CardNumbersView,
-    {
-      cardNumbers,
-      errorMessage,
-      errors,
-      handleInputChange
-    }
-  );
-};
-const ExpirationPeriodView = ({
-  period,
-  errorMessage,
-  errors,
-  handleInputChange,
-  onFocus,
-  onBlur
-}) => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$1, { "data-testid": "expiration-component", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      InputLabels,
-      {
-        title: "카드 유효기간을 입력해 주세요",
-        caption: "월/년도(MMYY)를 순서대로 입력해 주세요."
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      InputTexts,
-      {
-        label: "유효기간",
-        placeholder: ["MM", "YY"],
-        state: period,
-        eventHandler: handleInputChange,
-        errors,
-        onFocus,
-        onBlur
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorMessage$1, { children: errorMessage })
-  ] });
-};
-const Container$1 = newStyled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%;
-`;
-const ErrorMessage$1 = newStyled.div`
-  font-weight: 400;
-  font-size: 9.5px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  vertical-align: middle;
-  color: red;
-  height: 9.5px;
-`;
 const EXPIRATION_PERIOD_LENGTH = 2;
-const SEPARATOR = "/";
 const MONTH = {
   MIN: 1,
   MAX: 12
@@ -13702,77 +16067,89 @@ const YEAR = {
   MIN: 0,
   MAX: 99
 };
-const ERROR_MESSAGE$1 = {
+const ERROR_MESSAGE$2 = {
   INVALID: "올바른 유효기간을 입력하세요.",
   INVALID_CHARACTER: "숫자만 입력 가능합니다."
 };
+const useExpirationPeriod = ({
+  period,
+  setPeriod,
+  separatorRef,
+  setExpirationPeriodError
+}) => {
+  const { errors, setErrors, errorMessage, setErrorMessage } = useErrorMessage([
+    false,
+    false
+  ]);
+  reactExports.useEffect(() => {
+    const hasError = errors.some((error) => error === true);
+    setExpirationPeriodError(hasError);
+  }, [errors]);
+  const isNumeric = (value) => /^[0-9]*$/.test(value);
+  const isValidMonth = (value) => {
+    const month = Number(value);
+    return value.length === EXPIRATION_PERIOD_LENGTH && month >= MONTH.MIN && month <= MONTH.MAX;
+  };
+  const isValidYear = (value) => {
+    const year = Number(value);
+    return value.length === EXPIRATION_PERIOD_LENGTH && year >= YEAR.MIN && year <= YEAR.MAX;
+  };
+  const updateErrors = (prev2, index, isError) => {
+    const newErrors = [...prev2];
+    newErrors[index] = isError;
+    return newErrors;
+  };
+  const handleInputChange = (e, index) => {
+    const value = e.target.value;
+    if (!isNumeric(value)) {
+      setErrorMessage(ERROR_MESSAGE$2.INVALID_CHARACTER);
+      setErrors((prev2) => updateErrors(prev2, index, true));
+      return;
+    }
+    const isMonthField = index === 0;
+    const isValid = isMonthField ? isValidMonth(value) : isValidYear(value);
+    if (!isValid) {
+      setErrorMessage(ERROR_MESSAGE$2.INVALID);
+      setErrors((prev2) => updateErrors(prev2, index, true));
+      setPeriod((prev2) => ({
+        ...prev2,
+        [isMonthField ? "month" : "year"]: value
+      }));
+      return;
+    }
+    setErrors((prev2) => updateErrors(prev2, index, false));
+    setPeriod((prev2) => ({
+      ...prev2,
+      [isMonthField ? "month" : "year"]: value
+    }));
+  };
+  return {
+    errorMessage,
+    errors,
+    handleInputChange
+  };
+};
+const SEPARATOR = "/";
 const ExpirationPeriod = ({
   period,
   setPeriod,
-  separatorRef
+  separatorRef,
+  onComplete,
+  setExpirationPeriodError
 }) => {
-  const [errorMessage, setErrorMessage] = reactExports.useState("");
-  const [errors, setErrors] = reactExports.useState([false, false]);
-  reactExports.useEffect(() => {
-    if (errors.every((error) => error === false)) {
-      setErrorMessage("");
-    }
-  }, [errors]);
-  const handleInputChange = (e, index) => {
-    const value = e.target.value;
-    setPeriod((prev2) => {
-      const newState = [...prev2];
-      let valid = true;
-      let message = "";
-      if (!/^[0-9]*$/.test(value)) {
-        valid = false;
-        message = ERROR_MESSAGE$1.INVALID_CHARACTER;
-      } else if (value.length <= EXPIRATION_PERIOD_LENGTH) {
-        newState[index] = value;
-        if (index === 0) {
-          const month = Number(value);
-          if (month > MONTH.MAX || month < MONTH.MIN) {
-            valid = false;
-            message = ERROR_MESSAGE$1.INVALID;
-          } else if (month < 10 && !value.startsWith("0")) {
-            valid = false;
-            message = ERROR_MESSAGE$1.INVALID;
-          }
-        } else {
-          const year = Number(value);
-          if (year < YEAR.MIN || year > YEAR.MAX) {
-            valid = false;
-            message = ERROR_MESSAGE$1.INVALID;
-          } else if (year < 10 && !value.startsWith("0") || value.length === 1) {
-            valid = false;
-            message = ERROR_MESSAGE$1.INVALID;
-          }
-        }
-      }
-      if (!valid) {
-        setErrorMessage(message);
-        setErrors((prevErr) => {
-          const newErrors = [...prevErr];
-          newErrors[index] = true;
-          return newErrors;
-        });
-      } else {
-        setErrors((prevErr) => {
-          const newErrors = [...prevErr];
-          newErrors[index] = false;
-          return newErrors;
-        });
-      }
-      return newState;
-    });
-  };
+  const { errorMessage, errors, handleInputChange } = useExpirationPeriod({
+    period,
+    setPeriod,
+    separatorRef,
+    setExpirationPeriodError
+  });
   const handleFocus = () => {
     if (separatorRef == null ? void 0 : separatorRef.current) {
       separatorRef.current.textContent = SEPARATOR;
     }
   };
   const handleBlur = () => {
-    if ((separatorRef == null ? void 0 : separatorRef.current) && period[0] === "" && period[1] === "") {
+    if ((separatorRef == null ? void 0 : separatorRef.current) && period.month === "" && period.year === "") {
       separatorRef.current.textContent = "";
     }
   };
@@ -13784,18 +16161,50 @@ const ExpirationPeriod = ({
       errors,
       handleInputChange,
       onFocus: handleFocus,
-      onBlur: handleBlur
+      onBlur: handleBlur,
+      onComplete
     }
   );
+};
+const CVC_NUMBERS_LENGTH = 3;
+const ERROR_MESSAGE$1 = "숫자만 입력 가능합니다.";
+const useCVCNumbers = ({
+  cvcNumbers,
+  setCvcNumbers,
+  setCvcError
+}) => {
+  const [errorMessage, setErrorMessage] = reactExports.useState("");
+  const [error, setError] = reactExports.useState(false);
+  reactExports.useEffect(() => {
+    const hasError = error || cvcNumbers.length !== CVC_NUMBERS_LENGTH;
+    setCvcError(hasError);
+  }, [error, cvcNumbers, setCvcError]);
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    if (/^[0-9]*$/.test(value) && value.length <= CVC_NUMBERS_LENGTH) {
+      setErrorMessage("");
+      setError(false);
+      setCvcNumbers(value);
+    } else {
+      setErrorMessage(ERROR_MESSAGE$1);
+      setError(true);
+    }
+  };
+  return {
+    errorMessage,
+    error,
+    handleInputChange
+  };
 };
 const CVCNumbersView = ({
   cvcNumbers,
   errorMessage,
   error,
-  handleInputChange
+  handleInputChange,
+  onComplete
 }) => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container, { "data-testid": "cvcnumbers-component", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(InputLabels, { title: "CVC 번호를 입력해 주세요" }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$2, { "data-testid": "cvcnumbers-component", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(FormLabel, { title: "CVC 번호를 입력해 주세요" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       InputTexts,
       {
@@ -13803,20 +16212,22 @@ const CVCNumbersView = ({
         placeholder: ["123"],
         state: cvcNumbers,
         eventHandler: handleInputChange,
-        errors: [error]
+        errors: [error],
+        type: "text",
+        onComplete
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorMessage, { children: errorMessage })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorMessage$1, { children: errorMessage })
   ] });
 };
-const Container = newStyled.div`
+const Container$2 = newStyled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   width: 100%;
 `;
-const ErrorMessage = newStyled.div`
+const ErrorMessage$1 = newStyled.div`
   font-weight: 400;
   font-size: 9.5px;
   line-height: 100%;
@@ -13824,36 +16235,25 @@ const ErrorMessage = newStyled.div`
   color: red;
   height: 9.5px;
 `;
-const CVC_NUMBERS_LENGTH = 3;
-const ERROR_MESSAGE = "숫자만 입력 가능합니다.";
 const CVCNumbers = ({
   cvcNumbers,
-  setCvcNumbers
+  setCvcNumbers,
+  onComplete,
+  setCvcError
 }) => {
-  const [errorMessage, setErrorMessage] = reactExports.useState("");
-  const [error, setError] = reactExports.useState(false);
-  const handleInputChange = (e) => {
-    setCvcNumbers((prev2) => {
-      const newState = [...prev2];
-      const value = e.target.value;
-      if (/^[0-9]*$/.test(value) && value.length <= CVC_NUMBERS_LENGTH) {
-        newState[0] = value;
-        setErrorMessage("");
-        setError(false);
-      } else {
-        setErrorMessage(ERROR_MESSAGE);
-        setError(true);
-      }
-      return newState;
-    });
-  };
+  const { errorMessage, error, handleInputChange } = useCVCNumbers({
+    cvcNumbers,
+    setCvcNumbers,
+    setCvcError
+  });
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     CVCNumbersView,
     {
       cvcNumbers,
       errorMessage,
       error,
-      handleInputChange
+      handleInputChange,
+      onComplete
     }
   );
 };
@@ -13862,11 +16262,12 @@ const PreviewView = ({
   cardNumbers,
   period,
   separatorRef,
-  cardMethodSrc
+  cardMethodSrc,
+  cardFrameColor
 }) => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(PreviewContainer, { "data-testid": "preview-component", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardFrame, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(PreviewContainer, { "data-testid": "preview-component", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardFrame, { cardFrameColor, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(ICChip, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
+    cardMethodSrc && /* @__PURE__ */ jsxRuntimeExports.jsx(
       CardMethod,
       {
         src: cardMethodSrc,
@@ -13875,11 +16276,11 @@ const PreviewView = ({
         alt: "Card Method"
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CardNumberArea, { children: cardNumbers.map((number, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(CardNumber, { children: index < CARD_NUMBER_VISIBLE_THRESHOLD ? number : "∙".repeat(number.length) }, index)) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CardNumberArea, { children: Object.values(cardNumbers).map((number, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(CardNumber, { children: index < CARD_NUMBER_VISIBLE_THRESHOLD ? number : "∙".repeat(number.length) }, index)) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(CardPeriodArea, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CardPeriod, { children: period[0] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardPeriod, { children: period.month }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Separator, { ref: separatorRef }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CardPeriod, { children: period[1] })
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardPeriod, { children: period.year })
     ] })
   ] }) });
 };
@@ -13899,7 +16300,7 @@ const CardFrame = newStyled.div`
   width: 212px;
   height: 132px;
   border-radius: 4px;
-  background-color: #333333;
+  background-color: ${({ cardFrameColor }) => cardFrameColor};
   box-shadow: 3px 3px 5px 0px #00000040;
   position: relative;
 `;
@@ -13976,14 +16377,23 @@ const MASTERCARD_CARD_PREFIXES = {
 const Preview = ({
   cardNumbers,
   period,
-  separatorRef
+  separatorRef,
+  cardFrameColor
 }) => {
   const [cardMethodSrc, setCardMethodSrc] = reactExports.useState("");
+  const isVisa = (firstInput) => {
+    return firstInput.startsWith(VISA_CARD_PREFIXES);
+  };
+  const isMastercard = (firstInput) => {
+    const prefix2 = Number(firstInput.slice(0, 2));
+    return prefix2 >= MASTERCARD_CARD_PREFIXES.MIN && prefix2 <= MASTERCARD_CARD_PREFIXES.MAX;
+  };
   reactExports.useEffect(() => {
-    if (cardNumbers[0].startsWith(VISA_CARD_PREFIXES)) {
-      setCardMethodSrc(`${"/react-payments/"}/images/visa.svg`);
-    } else if (Number(cardNumbers[0].slice(0, 2)) >= MASTERCARD_CARD_PREFIXES.MIN && Number(cardNumbers[0].slice(0, 2)) <= MASTERCARD_CARD_PREFIXES.MAX) {
-      setCardMethodSrc(`${"/react-payments/"}/images/Mastercard.svg`);
+    const firstInputValue = cardNumbers.first;
+    if (isVisa(firstInputValue)) {
+      setCardMethodSrc(`/images/visa.svg`);
+    } else if (isMastercard(firstInputValue)) {
+      setCardMethodSrc(`/images/Mastercard.svg`);
     } else {
       setCardMethodSrc("");
     }
@@ -13994,34 +16404,438 @@ const Preview = ({
       cardNumbers,
       period,
       separatorRef,
-      cardMethodSrc
+      cardMethodSrc,
+      cardFrameColor
     }
   );
 };
-const App = () => {
-  const [cardNumbers, setCardNumbers] = reactExports.useState(["", "", "", ""]);
-  const [period, setPeriod] = reactExports.useState(["", ""]);
-  const [cvcNumbers, setCvcNumbers] = reactExports.useState([""]);
+const SingleSelect = ({
+  options: options2,
+  placeHolder,
+  selectedCardBrand,
+  onChange
+}) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    Select,
+    {
+      value: selectedCardBrand,
+      onChange,
+      isPlaceholder: selectedCardBrand === "",
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Option, { value: "", disabled: true, hidden: true, children: placeHolder }, "0"),
+        options2.map((option) => /* @__PURE__ */ jsxRuntimeExports.jsx(Option, { value: option.name, children: option.name }, option.id))
+      ]
+    }
+  );
+};
+const Select = newStyled.select`
+  width: 320px;
+  height: 32px;
+  justify-content: space-between;
+  border-radius: 3px;
+  border-width: 1px;
+  padding: 8px;
+  border: 1px solid #ccc;
+
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+
+  color: ${({ isPlaceholder }) => isPlaceholder ? "#acacac" : "#000000"};
+`;
+const Option = newStyled.option`
+  width: 320px;
+  height: 30px;
+  gap: 6px;
+  padding: 7px 73px 7px 10px;
+
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: 0%;
+
+  color: #4f4f4f;
+`;
+const options = [
+  { id: 1, name: "BC카드", color: "#F04651" },
+  { id: 2, name: "신한카드", color: "#0046FF" },
+  { id: 3, name: "카카오뱅크", color: "#FFE600" },
+  { id: 4, name: "현대카드", color: "#000000" },
+  { id: 5, name: "우리카드", color: "#007BC8" },
+  { id: 6, name: "롯데카드", color: "#ED1C24" },
+  { id: 7, name: "하나카드", color: "#009490" },
+  { id: 8, name: "국민카드", color: "#6A6056" }
+];
+const CardBrandSelector = ({
+  setCardFrameColor,
+  setSelectedBrand
+}) => {
+  const [selectedCardBrand, setSelectedCardBrand] = reactExports.useState("");
+  reactExports.useEffect(() => {
+    const selectedOption = options.find(
+      (option) => option.name === selectedCardBrand
+    );
+    if (selectedOption) {
+      setCardFrameColor(selectedOption.color);
+    }
+  }, [selectedCardBrand]);
+  const handleSelectChange = (e) => {
+    const selectedValue = e.target.value;
+    setSelectedCardBrand(selectedValue);
+    setSelectedBrand(selectedValue);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$1, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      FormLabel,
+      {
+        title: "카드사를 선택해 주세요",
+        caption: "현재 국내 카드사만 가능합니다."
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      SingleSelect,
+      {
+        options,
+        placeHolder: "카드 브랜드를 선택해 주세요",
+        selectedCardBrand,
+        onChange: handleSelectChange
+      }
+    )
+  ] });
+};
+const Container$1 = newStyled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding-bottom: 12px;
+`;
+const CardPasswordView = ({
+  passwordNumbers,
+  errorMessage,
+  error,
+  handleInputChange
+}) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container, { "data-testid": "cardpassword-component", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      FormLabel,
+      {
+        title: "비밀번호를 입력해 주세요",
+        caption: "앞의 2자리를 입력해주세요"
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      InputTexts,
+      {
+        label: "비밀번호 앞 2자리",
+        placeholder: ["00"],
+        state: passwordNumbers,
+        eventHandler: handleInputChange,
+        errors: [error],
+        type: "password"
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorMessage, { children: errorMessage })
+  ] });
+};
+const Container = newStyled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+`;
+const ErrorMessage = newStyled.div`
+  font-weight: 400;
+  font-size: 9.5px;
+  line-height: 100%;
+  vertical-align: middle;
+  color: red;
+  height: 9.5px;
+`;
+const PASSWORD_NUMBERS_LENGTH = 2;
+const ERROR_MESSAGE = "숫자 2자리를 입력해주세요.";
+const useCardPassword = ({
+  setPasswordNumbers,
+  setPasswordError
+}) => {
+  const [errorMessage, setErrorMessage] = reactExports.useState("");
+  const [error, setError] = reactExports.useState(false);
+  reactExports.useEffect(() => {
+    const hasError = error;
+    setPasswordError(hasError);
+  }, [error, setPasswordError]);
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    if (/^[0-9]*$/.test(value) && value.length <= PASSWORD_NUMBERS_LENGTH) {
+      setErrorMessage("");
+      setError(false);
+      setPasswordNumbers(value);
+    } else {
+      setErrorMessage(ERROR_MESSAGE);
+      setError(true);
+    }
+  };
+  return {
+    errorMessage,
+    error,
+    handleInputChange
+  };
+};
+const CardPassword = ({
+  passwordNumbers,
+  setPasswordNumbers,
+  setPasswordError
+}) => {
+  const { errorMessage, error, handleInputChange } = useCardPassword({
+    setPasswordNumbers,
+    setPasswordError
+  });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    CardPasswordView,
+    {
+      passwordNumbers,
+      errorMessage,
+      error,
+      handleInputChange
+    }
+  );
+};
+const SingleButton = ({
+  type = "button",
+  children,
+  onClick,
+  disabled,
+  className
+}) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    Button,
+    {
+      type,
+      onClick,
+      disabled,
+      className,
+      children
+    }
+  );
+};
+const Button = newStyled.button`
+  border: 0;
+  background-color: transparent;
+`;
+const SubmitButton = ({
+  disabled,
+  children,
+  cardFirstPartNumbers,
+  cardBrandName
+}) => {
+  const navigate = useNavigate();
+  const handleOnClick = () => {
+    navigate("/card-register-complete", {
+      state: {
+        cardFirstPartNumbers,
+        cardBrandName
+      }
+    });
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Wrapper, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+    StyledSingleButton$1,
+    {
+      type: "button",
+      disabled,
+      onClick: handleOnClick,
+      children
+    }
+  ) });
+};
+const Wrapper = newStyled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+`;
+const StyledSingleButton$1 = newStyled(SingleButton)`
+  background: #333;
+  color: white;
+  padding: 16px;
+  width: 376px;
+  height: 52px;
+  margin: 0 auto;
+  display: block;
+  font-family: Noto Sans KR;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 12px;
+  letter-spacing: 0%;
+`;
+const Form = ({ onSubmit, children }) => /* @__PURE__ */ jsxRuntimeExports.jsx("form", { onSubmit, noValidate: true, children });
+const CardRegisterForm = ({
+  children,
+  onSubmit
+}) => /* @__PURE__ */ jsxRuntimeExports.jsx(Form, { onSubmit, children });
+const CardRegisterPage = () => {
+  const [cardNumbers, setCardNumbers] = reactExports.useState({
+    first: "",
+    second: "",
+    third: "",
+    fourth: ""
+  });
+  const [period, setPeriod] = reactExports.useState({
+    month: "",
+    year: ""
+  });
+  const [cvcNumbers, setCvcNumbers] = reactExports.useState("");
   const separatorRef = reactExports.useRef(null);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Main, { children: [
+  const [cardFrameColor, setCardFrameColor] = reactExports.useState("#333333");
+  const [selectedBrand, setSelectedBrand] = reactExports.useState("");
+  const [isCardNumbersFilled, setIsCardNumbersFilled] = reactExports.useState(false);
+  const [isPeriodFilled, setIsPeriodFilled] = reactExports.useState(false);
+  const [passwordNumbers, setPasswordNumbers] = reactExports.useState("");
+  const [isCVCFilled, setIsCVCFilled] = reactExports.useState(false);
+  const [cardNumbersError, setCardNumbersError] = reactExports.useState(false);
+  const [expirationPeriodError, setExpirationPeriodError] = reactExports.useState(false);
+  const [cvcError, setCvcError] = reactExports.useState(false);
+  const [passwordError, setPasswordError] = reactExports.useState(false);
+  const isAllValid = !cardNumbersError && !expirationPeriodError && !cvcError && !passwordError && isCardNumbersFilled && selectedBrand && isPeriodFilled && isCVCFilled && passwordNumbers.length === 2;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Main$1, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Preview,
       {
         cardNumbers,
         period,
-        separatorRef
+        separatorRef,
+        cardFrameColor
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CardNumbers, { cardNumbers, setCardNumbers }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      ExpirationPeriod,
-      {
-        period,
-        setPeriod,
-        separatorRef
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CVCNumbers, { cvcNumbers, setCvcNumbers })
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(CardRegisterForm, { children: [
+      isCVCFilled && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        CardPassword,
+        {
+          passwordNumbers,
+          setPasswordNumbers,
+          setPasswordError
+        }
+      ),
+      isPeriodFilled && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        CVCNumbers,
+        {
+          cvcNumbers,
+          setCvcNumbers,
+          onComplete: () => setIsCVCFilled(true),
+          setCvcError
+        }
+      ),
+      selectedBrand && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        ExpirationPeriod,
+        {
+          period,
+          setPeriod,
+          separatorRef,
+          onComplete: () => setIsPeriodFilled(true),
+          setExpirationPeriodError
+        }
+      ),
+      isCardNumbersFilled && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        CardBrandSelector,
+        {
+          setCardFrameColor,
+          setSelectedBrand
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        CardNumbers,
+        {
+          cardNumbers,
+          setCardNumbers,
+          onComplete: () => setIsCardNumbersFilled(true),
+          setCardNumbersError
+        }
+      ),
+      isAllValid && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        SubmitButton,
+        {
+          cardFirstPartNumbers: cardNumbers.first,
+          cardBrandName: selectedBrand,
+          children: "확인"
+        }
+      )
+    ] })
+  ] });
+};
+const Main$1 = newStyled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 43px 28px 0;
+  margin: 0 auto;
+  width: 376px;
+  height: auto;
+  min-height: 100dvh;
+  background-color: #f9f9f9;
+  gap: 24px;
+  padding-bottom: 52px;
+`;
+const Image = (props) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("img", { ...props });
+};
+const ConfirmButton = ({ disabled, children }) => {
+  const navigate = useNavigate();
+  const handleOnClick = () => {
+    navigate("/card-register", { replace: true });
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    StyledSingleButton,
+    {
+      type: "button",
+      disabled,
+      onClick: handleOnClick,
+      children
+    }
+  );
+};
+const StyledSingleButton = newStyled(SingleButton)`
+  background: #333;
+  color: white;
+  padding: 16px;
+  width: 100%;
+  height: 44px;
+  margin: 0 auto;
+  display: block;
+  border-radius: 5px;
+  font-family: Noto Sans KR;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 12px;
+  letter-spacing: 0%;
+`;
+const CardRegisterCompletePage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const cardInfo = location.state;
+  reactExports.useEffect(() => {
+    if (!cardInfo) {
+      navigate("/card-register", { replace: true });
+    } else {
+      window.history.replaceState(null, "", window.location.href);
+    }
+  }, []);
+  if (!cardInfo) return null;
+  const completeIconSrc = `/images/checkIcon.svg`;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Main, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Image, { src: completeIconSrc, alt: "Complete Icon", width: 76, height: 76 }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(InfoMessage, { children: [
+      cardInfo.cardFirstPartNumbers,
+      "로 시작하는",
+      /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
+      cardInfo.cardBrandName,
+      "가 등록되었습니다."
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ConfirmButton, { children: "확인" })
   ] });
 };
 const Main = newStyled.div`
@@ -14031,10 +16845,40 @@ const Main = newStyled.div`
   padding: 43px 28px 0;
   margin: 0 auto;
   width: 376px;
-  height: 100dvh;
+  height: auto;
+  min-height: 100dvh;
   background-color: #f9f9f9;
   gap: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
+const InfoMessage = newStyled.p`
+  width: 338px;
+  height: 100px;
+  font-family: Noto Sans KR;
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 150%;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  margin: 20px;
+  white-space: pre-wrap;
+`;
+const App = () => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { basename: "/react-payments", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/card-register", replace: true }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/card-register", element: /* @__PURE__ */ jsxRuntimeExports.jsx(CardRegisterPage, {}) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Route,
+      {
+        path: "/card-register-complete",
+        element: /* @__PURE__ */ jsxRuntimeExports.jsx(CardRegisterCompletePage, {})
+      }
+    )
+  ] }) });
+};
 ReactDOM.createRoot(document.getElementById("root")).render(
   /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) })
 );
