@@ -16391,9 +16391,9 @@ const Preview = ({
   reactExports.useEffect(() => {
     const firstInputValue = cardNumbers.first;
     if (isVisa(firstInputValue)) {
-      setCardMethodSrc(`/images/visa.svg`);
+      setCardMethodSrc(`./images/visa.svg`);
     } else if (isMastercard(firstInputValue)) {
-      setCardMethodSrc(`/images/Mastercard.svg`);
+      setCardMethodSrc(`./images/Mastercard.svg`);
     } else {
       setCardMethodSrc("");
     }
@@ -16825,7 +16825,7 @@ const CardRegisterCompletePage = () => {
     }
   }, []);
   if (!cardInfo) return null;
-  const completeIconSrc = `/images/checkIcon.svg`;
+  const completeIconSrc = `./images/checkIcon.svg`;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Main, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Image, { src: completeIconSrc, alt: "Complete Icon", width: 76, height: 76 }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(InfoMessage, { children: [
